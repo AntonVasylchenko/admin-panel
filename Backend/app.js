@@ -2,6 +2,7 @@ import express from "express";
 import env from "dotenv";
 import notFound from "./middleware/NotFound.js";
 import { router } from "./routes/productRoutes.js";
+import { connectDB } from "./db/connect.js";
 env.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -18,6 +19,7 @@ app.use(notFound);
 
 async function startApp() {
   try {
+    await connectDB(process.env.MONGO_URI)
     app.listen(PORT, function () {
       console.log(`Server was started on ${PORT} Port`);
     });
