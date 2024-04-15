@@ -4,9 +4,13 @@ import cloudinary from "cloudinary";
 
 export async function allMedia(req, res) {
   try {
-    res.send("all media");
+    const media = await Media.find({});
+    if (!media) {
+      throw new Error("Media not found");
+    }
+    res.status(200).json({ media });
   } catch (error) {
-    res.status(401).json({ msg: error.message });
+    res.status(404).json({ msg: error.message });
   }
 }
 export async function createMedia(req, res) {

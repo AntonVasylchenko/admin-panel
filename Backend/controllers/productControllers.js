@@ -1,7 +1,17 @@
+import { Media } from "../models/Media.js";
 import { Product } from "../models/Product.js";
 
 export async function createProduct(req, res) {
   try {
+    let media = [];
+    for(const mediaId of req.body.media) {
+      const mediaElement = await Media.findOne({ _id: mediaId });
+      if (!mediaElement) {
+        throw new Error(`No Media with id: ${mediaId} `);
+      }
+      media.push(mediaElement.path);
+    }
+    req.body.images = [...media];
     const product = await Product.create(req.body);
     res.status(201).json({ product });
   } catch (error) {
