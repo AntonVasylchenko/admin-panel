@@ -19,10 +19,6 @@ const ProductSchema = new mongoose.Schema({
     },
     tags: {
         type: [String]
-    },
-    categories: {
-        type: [mongoose.Types.ObjectId],
-        ref: "Collection"
     }
 }, { timestamps: true });
 
