@@ -1,0 +1,78 @@
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 22px;
+}
+
+.menu-item__button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 10px;
+    width: 100%;
+
+    color: #111827;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 150%;
+    letter-spacing: 0%;
+    text-align: left;
+}
+
+
+.menu-item__button span {
+    font: inherit;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 20px;
+}
+.menu-item__button span img {
+    transform: none
+}
+
+.menu-item__button img {
+    transition: transform 0.3s ease-in-out;
+}
+
+.menu-item:has(.menu-item__nav--active) .menu-item__button span + img {
+    transform: rotate(180deg);
+}
+
+.menu-item__nav {
+    padding-left: 38px;
+    padding-top: 0;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: padding 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.menu-item__nav--active {
+    max-height: fit-content;
+    padding-top: 6px;
+    opacity: 1;
+}
+
+.menu-item__nav-list {}
+
+.menu-list {}
+
+.menu-list__item {
+    padding: 9px 0;
+
+}
+
+.menu-list__link {
+    /* text-base/font-medium */
+    color: rgb(17, 24, 39);
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 150%;
+    letter-spacing: 0%;
+    text-align: left;
+}

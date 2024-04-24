@@ -4,18 +4,26 @@ import { Product } from "../models/Product.js";
 export async function createProduct(req, res) {
   try {
     let media = [];
-    for(const mediaId of req.body.media) {
-      const mediaElement = await Media.findOne({ _id: mediaId });
-      if (!mediaElement) {
-        throw new Error(`No Media with id: ${mediaId} `);
+    if (media.length) {
+      for(const mediaId of req.body.media) {
+        const mediaElement = await Media.findOne({ _id: mediaId });
+        if (!mediaElement) {
+          throw new Error(`No Media with id: ${mediaId} `);
+        }
+        media.push(mediaElement.path);
       }
-      media.push(mediaElement.path);
+      req.body.images = [...media];
     }
-    req.body.images = [...media];
+    if ( typeof req.body.tags === "string") {
+      req.body.tags = req.body.tags.split(",")
+    }
     const product = await Product.create(req.body);
+    if (!product) {
+      throw new Error("Product was not created");
+    }
     res.status(201).json({ product });
   } catch (error) {
-    res.status(401).json({ msg: error.message });
+    res.status(404).json({ msg: error.message });
   }
 }
 export async function getSinleProduct(req, res) {
