@@ -1,27 +1,29 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 type Props = {
-    link: boolean,
-    path?: string,
-    children: string
-    cssSelector: string
-    type?: "submit" | "reset" | "button"
-}
+    link: boolean;
+    children: string;
+    cssSelector: string;
+    path?: string;
+    type?: "submit" | "reset" | "button";
+    onClick?: () => void;
+};
 
-const Button: React.FC<Props> = ({ children, link, path, cssSelector,type }) => {
-    const typeLink = () => {
-        return (
-            path ? <Link className={cssSelector} to={path}>{children}</Link> : ""
-        )
-    }
-    const typeButton = () => {
-        return (
-            <button type={type} className={cssSelector} >{children}</button>
-        )
-    }
+const Button: React.FC<Props> = ({ children, link, path, cssSelector, type, onClick }) => {
+    const renderLink = () => (
+        <Link className={cssSelector} to={path!}>
+            {children}
+        </Link>
+    );
 
-    return link ? typeLink() : typeButton()
-}
+    const renderButton = () => (
+        <button onClick={onClick} type={type} className={cssSelector}>
+            {children}
+        </button>
+    );
 
-export default Button
+    return link ? renderLink() : renderButton();
+};
+
+export default Button;

@@ -5,6 +5,15 @@
     padding: 20px 0;
 }
 
+.product-grid--empty {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    padding: 20px 0;
+    align-items: center;
+    justify-content: center;
+}
+
 .product-grid__link {
     border-radius: 12px;
     background: #0e9f6e;
@@ -19,4 +28,18 @@
     padding: 10px 20px;
     margin-left: auto;
     text-transform: uppercase;
+}
+
+.product-grid--empty h2 {
+    color: #111827;
+    font-family: Inter;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 130%;
+    letter-spacing: 0%;
+    text-align: center;
+}
+
+.product-grid--empty .product-grid__link {
+    margin: 0 auto;
 }

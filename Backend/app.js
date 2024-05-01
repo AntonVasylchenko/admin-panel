@@ -6,7 +6,9 @@ const __dirname = path.dirname(__filename);
 
 import express from "express";
 import env from "dotenv";
+import 'express-async-errors';
 import notFound from "./middleware/NotFound.js";
+import errorHandlerMiddleware from "./middleware/error-handler.js";
 import { router as routerProduct } from "./routes/productRoutes.js";
 import { router as routerMedia } from "./routes/mediaRoutes.js";
 import { connectDB } from "./db/connect.js";
@@ -53,7 +55,9 @@ app.use(
 
 app.use("/api/v1/products", routerProduct);
 app.use("/api/v1/media", routerMedia);
+
 app.use(notFound);
+app.use(errorHandlerMiddleware);
 
 async function startApp() {
   try {
