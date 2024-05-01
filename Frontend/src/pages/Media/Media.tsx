@@ -1,9 +1,9 @@
 import React from 'react'
+import { MediaList } from '../../component'
+
 
 const Media:React.FC = () => {
-  return (
-    <div>Media</div>
-  )
+  return <MediaList/>
 }
 
 export default Media
