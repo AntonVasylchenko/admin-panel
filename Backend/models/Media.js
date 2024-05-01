@@ -7,6 +7,11 @@ const MediaSchema = new mongoose.Schema(
       trim: true,
       required: [true, "Please provide media path"],
     },
+    name: {
+      type: String,
+      trim: true,
+      required: [true, "Please provide media name"],
+    }
   },
   { timestamps: true }
 );

@@ -49,7 +49,7 @@ const Router = createBrowserRouter([
       {
         path: "/products",
         element: <Products />,
-        loader: async ({ params }) => {
+        loader: async () => {
           const response = await fetch("http://localhost:3000/api/v1/products");
           const products = await response.json();
           return products
@@ -66,20 +66,16 @@ const Router = createBrowserRouter([
       },
       {
         path: "/add-media",
-        element: <AddMedia />,
-        action: async ({ request }) => {
-          const formData = await request.formData();     
-          formData.append("file", "sss");
-          console.log(Object.fromEntries(formData));
-          
-          await postData("http://localhost:3000/api/v1/media", formData);
-          
-          return null
-        }
+        element: <AddMedia />
       },
       {
         path: "/media",
-        element: <Media />
+        element: <Media />,
+        loader: async () => {
+          const response = await fetch("http://localhost:3000/api/v1/media");
+          const media = await response.json();                    
+          return media
+        },
       },
     ]
   },
