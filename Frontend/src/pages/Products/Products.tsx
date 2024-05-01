@@ -5,7 +5,7 @@ import { ProductItem } from '../../component';
 import { Button } from '../../ui';
 
 type ProductsType = {
-    [key:string]: {
+    [key: string]: {
         _id: string,
         categories: string[],
         updatedAt: string,
@@ -13,26 +13,35 @@ type ProductsType = {
         description: string,
         images: string[],
         price: number,
-        tags:string[],
+        tags: string[],
         title: string
     }[]
 }
 
 
-const Products:React.FC = () => {
-const {products} = useLoaderData() as ProductsType ;
-  return (
-    <div className={style["product-grid"]}>
-        <Button link={true} path='/create-product' cssSelector={style["product-grid__link"]} >Create product</Button>
-        {
-            products.map( product => {
-                return (
-                    <ProductItem key={product._id} obj={product}/>
-                )
-            })
-        }
-    </div>
-  )
+const Products: React.FC = () => {
+    const { products } = useLoaderData() as ProductsType;
+
+    if (!products.length) {
+        return (
+            <div className={style["product-grid--empty"]}>
+                <h2>List of produts is empty, pleace create product</h2>
+                <Button link={true} path='/create-product' cssSelector={style["product-grid__link"]} >Create product</Button>
+            </div>
+        )
+    }
+    return (
+        <div className={style["product-grid"]}>
+            <Button link={true} path='/create-product' cssSelector={style["product-grid__link"]} >Create product</Button>
+            {
+                products.map(product => {
+                    return (
+                        <ProductItem key={product._id} obj={product} />
+                    )
+                })
+            }
+        </div>
+    )
 }
 
 export default Products

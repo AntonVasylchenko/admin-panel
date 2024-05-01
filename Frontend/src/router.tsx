@@ -1,6 +1,6 @@
 import { createBrowserRouter, redirect } from "react-router-dom"
 import App from './App.tsx'
-import { Products, CreateProduct, Media } from "./pages/index.ts";
+import { Products, CreateProduct, Media, AddMedia } from "./pages/index.ts";
 
 
 async function postData(url = "", data = {}) {
@@ -29,6 +29,11 @@ const Router = createBrowserRouter([
       {
         path: "/create-product",
         element: <CreateProduct />,
+        loader: async ({ params }) => {
+          const response = await fetch("http://localhost:3000/api/v1/media");
+          const { media } = await response.json();
+          return media
+        },
         action: async ({ request, params }) => {
           const formData = await request.formData();
           const updates = Object.fromEntries(formData);
@@ -61,16 +66,20 @@ const Router = createBrowserRouter([
       },
       {
         path: "/add-media",
-        element: <div>Add Media</div>,
+        element: <AddMedia />,
+        action: async ({ request }) => {
+          const formData = await request.formData();     
+          formData.append("file", "sss");
+          console.log(Object.fromEntries(formData));
+          
+          await postData("http://localhost:3000/api/v1/media", formData);
+          
+          return null
+        }
       },
       {
         path: "/media",
-        element: <Media />,
-        loader: async ({ params }) => {
-          const response = await fetch("http://localhost:3000/api/v1/media");
-          const media = await response.json();
-          return media
-        }
+        element: <Media />
       },
     ]
   },

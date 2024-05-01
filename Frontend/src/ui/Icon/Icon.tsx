@@ -1,81 +1,38 @@
-import React from 'react'
-import LogoSvg from "/icons/icon-logo.svg"
-import SearchSvg from "/icons/icon-search.svg"
-import ArroqSvg from "/icons/icon-arrow.svg"
-import ProductSvg from "/icons/icon-product.svg"
-import MediaSvg from "/icons/icon-media.svg"
+import React from 'react';
 
-const Icon: React.FC<{ type: string, selectorClass?: string }> = React.memo(
-    ({ type,selectorClass }) => {
+// Import SVG files
+import LogoSvg from "/icons/icon-logo.svg";
+import SearchSvg from "/icons/icon-search.svg";
+import ArroqSvg from "/icons/icon-arrow.svg";
+import ProductSvg from "/icons/icon-product.svg";
+import MediaSvg from "/icons/icon-media.svg";
+import UploadSvg from "/icons/icon-upload.svg";
 
-        function svgLogo() {
-            return (
-                <img src={LogoSvg} alt={type}
-                className={selectorClass} loading='lazy' />
-            )
-        }
-
-        function svgSearch() {
-            return (
-                <img src={SearchSvg} alt={type} 
-                className={selectorClass} loading='lazy' />
-            )
-        }
-        function svgArrow() {
-            return (
-                <img src={ArroqSvg} alt={type} 
-                className={selectorClass} loading='lazy' />
-            )
-        }
-        function svgProduct() {
-            return (
-                <img src={ProductSvg} alt={type} 
-                className={selectorClass} loading='lazy' />
-            )
-        }
-        function svgMedia() {
-            return (
-                <img src={MediaSvg} alt={type} 
-                className={selectorClass} loading='lazy' />
-            )
-        }
-
-        let icon;
-        switch (type.toLocaleLowerCase().trim()) {
+const Icon: React.FC<{ type: string, selectorClass?: string }> = React.memo(({ type, selectorClass }) => {
+    const getSvg = () => {
+        switch (type.toLowerCase().trim()) {
             case "logo":
-                icon = svgLogo()
-                break;
+                return <img src={LogoSvg} alt={type} className={selectorClass} loading='lazy' />;
             case "search":
-                icon = svgSearch()
-                break;
+                return <img src={SearchSvg} alt={type} className={selectorClass} loading='lazy' />;
             case "arrow":
-                icon = svgArrow()
-                break;
+                return <img src={ArroqSvg} alt={type} className={selectorClass} loading='lazy' />;
             case "product":
-                icon = svgProduct()
-                break;
+                return <img src={ProductSvg} alt={type} className={selectorClass} loading='lazy' />;
             case "media":
-                icon = svgMedia()
-                break;
+                return <img src={MediaSvg} alt={type} className={selectorClass} loading='lazy' />;
+            case "upload":
+                return <img src={UploadSvg} alt={type} className={selectorClass} loading='lazy' />;
             default:
-                break;
+                return null;
         }
+    };
 
-        return (
-            <>
-                {
-                    icon && icon
-                }
-            </>
-        )
-    },
-    (prev, next) => {
-        if (prev.type === next.type) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-)
+    return (
+        <>
+            {getSvg()}
+        </>
+    );
+}, (prev, next) => prev.type === next.type);
 
-export default Icon
+export default Icon;

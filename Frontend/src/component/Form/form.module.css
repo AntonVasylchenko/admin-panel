@@ -23,6 +23,10 @@
     margin-right: auto;
     text-transform: uppercase;
 }
+.form-details__button--media {
+    margin-left: auto;
+    margin-right: unset;
+}
 
 .form-details__row {
     display: flex;
