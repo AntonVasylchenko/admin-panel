@@ -5,10 +5,11 @@ import customError from "../errors/index.js";
 import StatusCodes from "http-status-codes";
 
 
+
 export async function allMedia(req, res) {
   const media = await Media.find({});
   if (!media) {
-    throw new Error("Media not found");
+    throw new customError.BadRequestError("Media not found");
   }
   res.status(StatusCodes.OK).json({ media });
 }
@@ -46,12 +47,23 @@ export async function createMedia(req, res) {
   );
   fs.unlinkSync(media.tempFilePath);
 
-  await Media.create({ path: result.secure_url, name:media.name });
+  console.log(result);
+
+  await Media.create({ path: result.secure_url, name:media.name, public_id:result.public_id });
 
   return res.status(StatusCodes.CREATED).json({
-    image: { src: result.secure_url, name:media.name },
+    image: { path: result.secure_url, name:media.name, public_id:result.public_id },
   });
 }
 export async function deleteMedia(req, res) {
-  res.send("Remove media");
+  const {id: mediaId} = req.params;
+  const media = await Media.findOne({_id: mediaId});
+  if (!media) {
+    throw new customError.BadRequestError(`Media not found with ${mediaId}`);
+  }
+
+  await media.findDeleteMedia(11313)
+  await media.deleteOne();
+  res.status(StatusCodes.OK).json({ msg: "Media deleted" });
+
 }
