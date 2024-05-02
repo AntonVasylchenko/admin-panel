@@ -1,13 +1,16 @@
 import { Media } from "../models/Media.js";
 import { Product } from "../models/Product.js";
 
+import customError from "../errors/index.js";
+import StatusCodes from "http-status-codes";
+
 export async function createProduct(req, res) {
   let media = [];
   if (typeof req.body.media === "string" && req.body.media.length) {
     for (const mediaId of req.body.media.split(",")) {
       const mediaElement = await Media.findOne({ _id: mediaId });
       if (!mediaElement) {
-        throw new Error(`No Media with id: ${mediaId} `);
+        throw new customError.BadRequestError(`No Media with id: ${mediaId} `);
       }
       media.push(mediaElement.path);
     }
@@ -21,24 +24,24 @@ export async function createProduct(req, res) {
 
   const product = await Product.create(req.body);
   if (!product) {
-    throw new Error("Product was not created");
+    throw new customError.BadRequestError("Product was not created");
   }
-  res.status(201).json({ product });
+  res.status(StatusCodes.CREATED).json({ product });
 }
 export async function getSinleProduct(req, res) {
   const { id: productId } = req.params;
   const product = await Product.findOne({ _id: productId });
   if (!product) {
-    throw new Error(`Product not found with ${productId}`);
+    throw new customError.BadRequestError(`Product not found with ${productId}`);
   }
-  res.status(200).json({ product });
+  res.status(StatusCodes.OK).json({ product });
 }
 export async function getAllProducts(req, res) {
   const products = await Product.find({});
   if (!products) {
-    throw new Error("Products not found");
+    throw new customError.BadRequestError("Products not found");
   }
-  res.status(200).json({ products });
+  res.status(StatusCodes.OK).json({ products });
 }
 export async function updateProduct(req, res) {
   const { id: productId } = req.params;
@@ -48,17 +51,17 @@ export async function updateProduct(req, res) {
     { new: true, runValidators: true }
   );
   if (!product) {
-    throw new Error(`Product not found with ${productId}`);
+    throw new customError.BadRequestError(`Product not found with ${productId}`);
   }
-  res.status(200).json({ product });
+  res.status(StatusCodes.OK).json({ product });
 }
 export async function deleteProduct(req, res) {
   const { id: productId } = req.params;
   const product = await Product.findOne({ _id: productId });
   if (!product) {
-    throw new Error(`Product not found with ${productId}`);
+    throw new customError.BadRequestError(`Product not found with ${productId}`);
   }
 
-  await Product.deleteOne();
-  res.status(200).json({ msg: "Product deleted" });
+  await product.deleteOne();
+  res.status(StatusCodes.OK).json({ msg: "Product deleted" });
 }

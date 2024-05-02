@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import cloudinary from "cloudinary";
 
 const MediaSchema = new mongoose.Schema(
   {
@@ -11,9 +12,20 @@ const MediaSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: [true, "Please provide media name"],
+    },
+    public_id: {
+      type: String
     }
   },
   { timestamps: true }
 );
+
+MediaSchema.methods.findDeleteMedia = async function (someParam) {
+  if (!this.public_id) return;
+  
+  cloudinary.v2.uploader
+  .destroy(this.public_id)
+  .then(result => console.log(result));
+};
 
 export const Media = mongoose.model("Media", MediaSchema);
