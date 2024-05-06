@@ -23,7 +23,6 @@ export async function createMedia(req, res) {
   }
   const isMediaExist = await Media.findOne({name:media.name});
 
-  console.log(isMediaExist);
   if (isMediaExist) {
     throw new customError.BadRequestError("This media have already added");
   }

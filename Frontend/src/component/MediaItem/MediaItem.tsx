@@ -17,14 +17,10 @@ const MediaItem: React.FC<MediaProps> = ({name,path,id}) => {
   }
   const handleRemoveMedia = async():Promise<void> => {
     try {
-
       const response = await fetch(`${endPoints.media}/${id}`, {
         method: 'DELETE'
       })
-
-      console.log(response);
-      
-      
+      console.log(response);      
     } catch (error) {
       console.log(error);
     }
