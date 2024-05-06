@@ -20,7 +20,7 @@ const MediaSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-MediaSchema.methods.findDeleteMedia = async function (someParam) {
+MediaSchema.methods.findDeleteMedia = async function () {
   if (!this.public_id) return;
   
   cloudinary.v2.uploader

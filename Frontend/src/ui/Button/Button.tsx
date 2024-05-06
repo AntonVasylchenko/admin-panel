@@ -7,7 +7,7 @@ type Props = {
     cssSelector: string;
     path?: string;
     type?: "submit" | "reset" | "button";
-    onClick?: () => void;
+    onClick?: ( e:React.UIEvent<HTMLButtonElement> ) => void;
 };
 
 const Button: React.FC<Props> = ({ children, link, path, cssSelector, type, onClick }) => {

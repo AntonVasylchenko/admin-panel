@@ -21,9 +21,9 @@ export async function createMedia(req, res) {
   if (!media.name) {
     throw new customError.BadRequestError("Please provide media name");
   }
-
   const isMediaExist = await Media.findOne({name:media.name});
 
+  console.log(isMediaExist);
   if (isMediaExist) {
     throw new customError.BadRequestError("This media have already added");
   }
@@ -47,8 +47,6 @@ export async function createMedia(req, res) {
   );
   fs.unlinkSync(media.tempFilePath);
 
-  console.log(result);
-
   await Media.create({ path: result.secure_url, name:media.name, public_id:result.public_id });
 
   return res.status(StatusCodes.CREATED).json({
@@ -62,7 +60,7 @@ export async function deleteMedia(req, res) {
     throw new customError.BadRequestError(`Media not found with ${mediaId}`);
   }
 
-  await media.findDeleteMedia(11313)
+  await media.findDeleteMedia()
   await media.deleteOne();
   res.status(StatusCodes.OK).json({ msg: "Media deleted" });
 

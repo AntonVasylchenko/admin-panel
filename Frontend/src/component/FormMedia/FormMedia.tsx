@@ -1,6 +1,7 @@
 import React from 'react'
 import style from "./form-media.module.css"
 import { Button, Icon } from '../../ui'
+import { redirect } from 'react-router-dom';
 
 const FormMedia: React.FC = () => {
     const [media, setMedia] = React.useState<any>();
@@ -42,12 +43,15 @@ const FormMedia: React.FC = () => {
                 method: 'POST',
                 body: formData
             }
-            await fetch("http://localhost:3000/api/v1/media", options)
             setMedia(null);
             setPreview("");
+            const response = await fetch("http://localhost:3000/api/v1/media", options);
+            const result = response.json()
+            console.log(result);
+
+
         } catch (error) {
             console.log(error);
-
         }
     }
 
@@ -73,7 +77,7 @@ const FormMedia: React.FC = () => {
             </div>
 
 
-            <Button type="submit" onClick={handleAddMedia} link={false} cssSelector={media ? style["form-media__button"] : style["form-media__button--disabled"] }>Save media</Button>
+            <Button type="submit" onClick={handleAddMedia} link={false} cssSelector={media ? style["form-media__button"] : style["form-media__button--disabled"]}>Save media</Button>
         </div>
     )
 }
