@@ -19,22 +19,21 @@ const MediaItem: React.FC<MediaProps> = ({name,path,id}) => {
     try {
       const response = await fetch(`${endPoints.media}/${id}`, {
         method: 'DELETE'
-      })
-      console.log(response);      
+      })     
     } catch (error) {
       console.log(error);
     }
   }
   return (
-    <div className={style["media-item"]}>
-      <img className={style["media-item__image"]} src={path} alt={name} loading='lazy' />
-      <Button type="button" onClick={handleCopyPath} link={false} cssSelector={style['media-item__button']}>
-        Copy
-      </Button>
-      <Button type="button" onClick={handleRemoveMedia} link={false} cssSelector={style['media-item__button-remove']}>
-        remove
-      </Button>
-    </div>
+      <div className={style["media-item"]}>
+        <img className={style["media-item__image"]} src={path} alt={name} loading='lazy' />
+        <Button type="button" onClick={handleCopyPath} link={false} cssSelector={style['media-item__button']}>
+          Copy
+        </Button>
+        <Button type="button" onClick={handleRemoveMedia} link={false} cssSelector={style['media-item__button-remove']}>
+          remove
+        </Button>
+      </div>
   )
 }
 
