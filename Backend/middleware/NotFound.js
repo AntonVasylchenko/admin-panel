@@ -1,5 +1,5 @@
-function notFound(req, res) {
+function notFoundMiddleware(req, res) {
   res.status(404).send("Roure does not exist");
 }
 
-export default notFound;
+export default notFoundMiddleware;

@@ -1,26 +1,34 @@
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
+// Server
 import express from "express";
-import env from "dotenv";
-import 'express-async-errors';
-import notFound from "./middleware/NotFound.js";
-import errorHandlerMiddleware from "./middleware/error-handler.js";
-import { router as routerProduct } from "./routes/productRoutes.js";
-import { router as routerMedia } from "./routes/mediaRoutes.js";
+import "dotenv/config";
+import "express-async-errors";
+
+// DV
 import { connectDB } from "./db/connect.js";
+
+// File
 import fileUpload from "express-fileupload";
 import cloudinary from "cloudinary";
+
+// Dev Library
 import morgan from "morgan";
+
+// CORS
 import rateLimiter from "express-rate-limit";
 import helmet from "helmet";
 import xss from "xss-clean";
 import cors from "cors";
 
-env.config();
+// Controls
+import { logRoutes, mediaRoutes, productRoutes } from "./routes/index.js";
+
+// Middleware
+import {
+  notFoundMiddleware,
+  errorHandlerMiddleware,
+  createLog
+} from "./middleware/index.js";
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -42,9 +50,6 @@ app.use(cors());
 app.use(xss());
 
 app.use(morgan("tiny"));
-app.use(
-  express.static(path.resolve(path.dirname(__dirname), "./frontend/dist"))
-);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(
@@ -53,10 +58,11 @@ app.use(
   })
 );
 
-app.use("/api/v1/products", routerProduct);
-app.use("/api/v1/media", routerMedia);
+app.use("/api/v1/products",productRoutes);
+app.use("/api/v1/media", mediaRoutes);
+app.use("/api/v1/log", logRoutes);
 
-app.use(notFound);
+app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
 async function startApp() {

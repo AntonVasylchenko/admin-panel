@@ -6,10 +6,14 @@ import {
   updateProduct,
   deleteProduct,
 } from "../controllers/productControllers.js";
-export const router = Router();
+import createLog from "../middleware/createLog.js";
 
-router.get("/",getAllProducts);
-router.post("/",createProduct);
-router.get("/:id",getSinleProduct);
-router.patch("/:id",updateProduct);
-router.delete("/:id",deleteProduct);
+const router = Router();
+
+router.get("/", getAllProducts);
+router.post("/", createLog({type: "product", action: "Created" }),createProduct);
+router.get("/:id", getSinleProduct);
+router.patch("/:id",createLog({type: "product", action: "Changed" }),updateProduct);
+router.delete("/:id",createLog({type: "product", action: "Deleted" }),deleteProduct);
+
+export default router;
