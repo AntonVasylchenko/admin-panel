@@ -20,13 +20,18 @@ import xss from "xss-clean";
 import cors from "cors";
 
 // Controls
-import { logRoutes, mediaRoutes, productRoutes } from "./routes/index.js";
+import {
+  logRoutes,
+  mediaRoutes,
+  productRoutes,
+  collectionRoutes,
+} from "./routes/index.js";
 
 // Middleware
 import {
   notFoundMiddleware,
   errorHandlerMiddleware,
-  createLog
+  createLog,
 } from "./middleware/index.js";
 
 const app = express();
@@ -58,9 +63,10 @@ app.use(
   })
 );
 
-app.use("/api/v1/products",productRoutes);
+app.use("/api/v1/products", productRoutes);
 app.use("/api/v1/media", mediaRoutes);
 app.use("/api/v1/log", logRoutes);
+app.use("/api/v1/collection", collectionRoutes);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
