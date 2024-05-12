@@ -45,7 +45,6 @@ export async function createMedia(req, res) {
     }
   );
   fs.unlinkSync(media.tempFilePath);
-
   await Media.create({ path: result.secure_url, name:media.name, public_id:result.public_id });
 
   return res.status(StatusCodes.CREATED).json({

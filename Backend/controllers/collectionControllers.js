@@ -7,7 +7,7 @@ import StatusCodes from "http-status-codes";
 import { createArrayDb } from "../utility/utiltityMongo.js";
 
 async function getAllCollection(req, res) {
-    const collections = await Collection.find({});
+  const collections = await Collection.find({});
   if (!collections) {
     throw new customError.BadRequestError("Collections not found");
   }
@@ -28,21 +28,36 @@ async function createCollection(req, res) {
     tags: typeof tags === "string" ? tags.split(",") : "",
   };
 
-    const collection = await Collection.create(collectionData);
-    if (!collection) {
-      throw new customError.BadRequestError("Collection was not created");
-    }
+  const collection = await Collection.create(collectionData);
+  if (!collection) {
+    throw new customError.BadRequestError("Collection was not created");
+  }
 
-    res.status(StatusCodes.CREATED).json({ collection });
+  res.status(StatusCodes.CREATED).json({ collection });
 }
 async function getSingleCollection(req, res) {
-  res.send("Get single collection");
+  const { id: collectionId } = req.params;
+  const collection = await Collection.findOne({ _id: collectionId });
+  if (!collection) {
+    throw new customError.BadRequestError(
+      `Collection with id:${req.params.id} not found`
+    );
+  }
+  res.status(StatusCodes.OK).json({ collection });
 }
 async function updateCollection(req, res) {
   res.send("Update single collection");
 }
 async function removeCollection(req, res) {
-  res.send("Remove single collection");
+  const { id: collectionId } = req.params;
+  const collection = await Collection.findOne({ _id: collectionId });
+  if (!collection) {
+    throw new customError.BadRequestError(
+      `Collection with id:${req.params.id} not found`
+    );
+  }
+  await collection.deleteOne();
+  res.status(StatusCodes.OK).json({ msg: "Colection deleted" });
 }
 
 const collectionContollers = {
