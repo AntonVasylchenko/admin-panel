@@ -46,10 +46,34 @@ async function getSingleCollection(req, res) {
   res.status(StatusCodes.OK).json({ collection });
 }
 async function updateCollection(req, res) {
-  res.send("Update single collection");
+  const { id: collectionId } = req.params;
+  const { media, tags, products  } = req.body;
+  const updateObject = {
+    ...req.body
+  }
+  if (media) {
+    updateObject.media = await createArrayDb(media, Media, "Media", "path");
+  }
+  if (products) {
+    updateObject.products = await createArrayDb(products, Product, "Product", "_id");
+  }
+  if (tags) {
+    updateObject.tags = tags.split(",");
+  }
+  const collection = await Collection.findByIdAndUpdate(
+    { _id: collectionId },
+    updateObject,
+    { runValidators: true, new: true }
+  );
+  if (!collection) {
+    throw new customError.BadRequestError(
+      `Collection with id:${req.params.id} not found`
+    );
+  }
+  res.status(StatusCodes.OK).json({collection});
 }
 async function removeCollection(req, res) {
-  const { id: collectionId } = req.params;
+  const { id: collectionId} = req.params;
   const collection = await Collection.findOne({ _id: collectionId });
   if (!collection) {
     throw new customError.BadRequestError(
