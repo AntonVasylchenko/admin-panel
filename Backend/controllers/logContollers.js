@@ -5,7 +5,7 @@ import StatusCodes from "http-status-codes";
 export async function getAllLog(req, res) {
   const logs = await Log.find({});
   if (!logs) {
-    throw new customError.BadRequestError("Logs not found");
+    throw new customError.NotFoundError("Logs not found");
   }
   res.status(StatusCodes.OK).json({ logs });
 }
@@ -13,7 +13,7 @@ export async function getSingleLog(req, res) {
   const { id: logId } = req.params;
   const log = await Log.findOne({ _id: logId });
   if (!log) {
-    throw new customError.BadRequestError(`Log not found with ${logId}`);
+    throw new customError.NotFoundError(`Log not found with ${logId}`);
   }
   res.status(StatusCodes.OK).json({ log });
 }
@@ -41,7 +41,7 @@ export async function changeLog(req, res) {
     runValidators: true,
   });
   if (!log) {
-    throw new customError.BadRequestError(`Log not found with ${productId}`);
+    throw new customError.NotFoundError(`Log not found with ${productId}`);
   }
 
   res.status(StatusCodes.OK).json({ log });
@@ -49,7 +49,7 @@ export async function changeLog(req, res) {
 export async function removeAllLog(req, res) {
   const logs = await Log.deleteMany({});
   if (!logs) {
-    throw new customError.BadRequestError("Logs not found");
+    throw new customError.NotFoundError("Logs not found");
   }
   res.status(StatusCodes.OK).json({ msg: "All logs was deleted" });
 
@@ -58,7 +58,7 @@ export async function removeSingleLog(req, res) {
   const { id: logId } = req.params;
   const log = await Log.findOne({ _id: logId });
   if (!log) {
-    throw new customError.BadRequestError(`Log not found with ${logId}`);
+    throw new customError.NotFoundError(`Log not found with ${logId}`);
   }
   await log.deleteOne();
   res.status(StatusCodes.OK).json({ msg: "Log deleted" });
