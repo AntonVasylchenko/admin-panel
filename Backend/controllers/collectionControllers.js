@@ -30,7 +30,7 @@ async function createCollection(req, res) {
 
   const collection = await Collection.create(collectionData);
   if (!collection) {
-    throw new customError.BadRequestError("Collection was not created");
+    throw new customError.NotFoundError("Collection was not created");
   }
 
   res.status(StatusCodes.CREATED).json({ collection });
@@ -39,7 +39,7 @@ async function getSingleCollection(req, res) {
   const { id: collectionId } = req.params;
   const collection = await Collection.findOne({ _id: collectionId });
   if (!collection) {
-    throw new customError.BadRequestError(
+    throw new customError.NotFoundError(
       `Collection with id:${req.params.id} not found`
     );
   }
@@ -66,7 +66,7 @@ async function updateCollection(req, res) {
     { runValidators: true, new: true }
   );
   if (!collection) {
-    throw new customError.BadRequestError(
+    throw new customError.NotFoundError(
       `Collection with id:${req.params.id} not found`
     );
   }
@@ -76,7 +76,7 @@ async function removeCollection(req, res) {
   const { id: collectionId} = req.params;
   const collection = await Collection.findOne({ _id: collectionId });
   if (!collection) {
-    throw new customError.BadRequestError(
+    throw new customError.NotFoundError(
       `Collection with id:${req.params.id} not found`
     );
   }

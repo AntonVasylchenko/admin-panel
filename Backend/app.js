@@ -19,19 +19,16 @@ import helmet from "helmet";
 import xss from "xss-clean";
 import cors from "cors";
 
+// Cookie
+import cookieParser from 'cookie-parser';
+
 // Controls
-import {
-  logRoutes,
-  mediaRoutes,
-  productRoutes,
-  collectionRoutes,
-} from "./routes/index.js";
+import * as indexJs from "./routes/index.js";
 
 // Middleware
 import {
   notFoundMiddleware,
   errorHandlerMiddleware,
-  createLog,
 } from "./middleware/index.js";
 
 const app = express();
@@ -55,18 +52,22 @@ app.use(cors());
 app.use(xss());
 
 app.use(morgan("tiny"));
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cookieParser(process.env.COOKIE_KEY));
+
 app.use(
   fileUpload({
     useTempFiles: true,
   })
 );
 
-app.use("/api/v1/products", productRoutes);
-app.use("/api/v1/media", mediaRoutes);
-app.use("/api/v1/log", logRoutes);
-app.use("/api/v1/collection", collectionRoutes);
+app.use("/api/v1/products", indexJs.productRoutes);
+app.use("/api/v1/media", indexJs.mediaRoutes);
+app.use("/api/v1/log", indexJs.logRoutes);
+app.use("/api/v1/collection", indexJs.collectionRoutes);
+app.use("/api/v1/customer", indexJs.customerRoutes);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

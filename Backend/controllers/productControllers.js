@@ -10,7 +10,7 @@ export async function createProduct(req, res) {
     mediaIds.map(async (mediaId) => {
       const mediaElement = await Media.findOne({ _id: mediaId });
       if (!mediaElement) {
-        throw new BadRequestError(`No Media with id: ${mediaId}`);
+        throw new customError.NotFoundError(`No Media with id: ${mediaId}`);
       }
       return mediaElement.path;
     })
@@ -27,7 +27,7 @@ export async function createProduct(req, res) {
 
   const product = await Product.create(productData);
   if (!product) {
-    throw new BadRequestError("Product was not created");
+    throw new customError.BadRequestError("Product was not created");
   }
 
   const {type, action} = req.log;
@@ -42,7 +42,7 @@ export async function getSinleProduct(req, res) {
   const { id: productId } = req.params;
   const product = await Product.findOne({ _id: productId });
   if (!product) {
-    throw new customError.BadRequestError(
+    throw new customError.NotFoundError(
       `Product not found with ${productId}`
     );
   }
@@ -76,7 +76,7 @@ export async function getAllProducts(req, res) {
   const products = await productsQuery;
 
   if (!products || products.length === 0) {
-    throw new customError.BadRequestError("Products not found");
+    throw new customError.NotFoundError("Products not found");
   }
 
   const totalProduct = await Product.countDocuments(searchObject);
@@ -99,7 +99,7 @@ export async function updateProduct(req, res) {
     { new: true, runValidators: true }
   );
   if (!product) {
-    throw new customError.BadRequestError(
+    throw new customError.NotFoundError(
       `Product not found with ${productId}`
     );
   }
@@ -114,7 +114,7 @@ export async function deleteProduct(req, res) {
   const { id: productId } = req.params;
   const product = await Product.findOne({ _id: productId });
   if (!product) {
-    throw new customError.BadRequestError(
+    throw new customError.NotFoundError(
       `Product not found with ${productId}`
     );
   }

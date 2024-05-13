@@ -55,7 +55,7 @@ export async function deleteMedia(req, res) {
   const {id: mediaId} = req.params;
   const media = await Media.findOne({_id: mediaId});
   if (!media) {
-    throw new customError.BadRequestError(`Media not found with ${mediaId}`);
+    throw new customError.NotFoundError(`Media not found with ${mediaId}`);
   }
 
   await media.findDeleteMedia()
