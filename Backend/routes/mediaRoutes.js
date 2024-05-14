@@ -1,10 +1,13 @@
 import { Router } from "express";
-import { createMedia, deleteMedia,allMedia } from "../controllers/mediaConrollers.js";
+import { mediaControllers } from "../controllers/index.js";
 
 const router = Router();
 
-router.get("/", allMedia);
-router.post("/", createMedia);
-router.delete("/:id", deleteMedia);
+router
+  .route("/")
+  .get(mediaControllers.allMedia)
+  .post(mediaControllers.createMedia);
 
-export default router
+router.route("/:id").delete(mediaControllers.deleteMedia);
+
+export default router;

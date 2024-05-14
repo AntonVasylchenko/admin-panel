@@ -4,7 +4,7 @@ import { Product } from "../models/Product.js";
 import customError from "../errors/index.js";
 import StatusCodes from "http-status-codes";
 
-export async function createProduct(req, res) {
+async function createProduct(req, res) {
   const mediaIds = req.body.media?.split(",") || [];
   const mediaPaths = await Promise.all(
     mediaIds.map(async (mediaId) => {
@@ -30,7 +30,7 @@ export async function createProduct(req, res) {
     throw new customError.BadRequestError("Product was not created");
   }
 
-  const {type, action} = req.log;
+  const { type, action } = req.log;
 
   if (type && action) {
     await product.handleDbLog(type, action, product._id);
@@ -38,17 +38,15 @@ export async function createProduct(req, res) {
 
   res.status(StatusCodes.CREATED).json({ product });
 }
-export async function getSinleProduct(req, res) {
+async function getSinleProduct(req, res) {
   const { id: productId } = req.params;
   const product = await Product.findOne({ _id: productId });
   if (!product) {
-    throw new customError.NotFoundError(
-      `Product not found with ${productId}`
-    );
+    throw new customError.NotFoundError(`Product not found with ${productId}`);
   }
   res.status(StatusCodes.OK).json({ product });
 }
-export async function getAllProducts(req, res) {
+async function getAllProducts(req, res) {
   const availableStatus = ["draft", "active"];
   const availableSort = {
     latest: "-createdAt",
@@ -91,7 +89,7 @@ export async function getAllProducts(req, res) {
   });
 }
 
-export async function updateProduct(req, res) {
+async function updateProduct(req, res) {
   const { id: productId } = req.params;
   const product = await Product.findByIdAndUpdate(
     { _id: productId },
@@ -99,27 +97,23 @@ export async function updateProduct(req, res) {
     { new: true, runValidators: true }
   );
   if (!product) {
-    throw new customError.NotFoundError(
-      `Product not found with ${productId}`
-    );
+    throw new customError.NotFoundError(`Product not found with ${productId}`);
   }
-  const {type, action} = req.log;
+  const { type, action } = req.log;
 
   if (type && action) {
     await product.handleDbLog(type, action, product._id);
   }
   res.status(StatusCodes.OK).json({ product });
 }
-export async function deleteProduct(req, res) {
+async function deleteProduct(req, res) {
   const { id: productId } = req.params;
   const product = await Product.findOne({ _id: productId });
   if (!product) {
-    throw new customError.NotFoundError(
-      `Product not found with ${productId}`
-    );
+    throw new customError.NotFoundError(`Product not found with ${productId}`);
   }
 
-  const {type, action} = req.log;
+  const { type, action } = req.log;
 
   if (type && action) {
     await product.handleDbLog(type, action, product._id);
@@ -127,3 +121,13 @@ export async function deleteProduct(req, res) {
   await product.deleteOne();
   res.status(StatusCodes.OK).json({ msg: "Product deleted" });
 }
+
+const productControllers = {
+  createProduct,
+  getSinleProduct,
+  getAllProducts,
+  updateProduct,
+  deleteProduct,
+};
+
+export default productControllers;

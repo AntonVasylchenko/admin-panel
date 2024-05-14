@@ -2,14 +2,14 @@ import { Log } from "../models/Log.js";
 import customError from "../errors/index.js";
 import StatusCodes from "http-status-codes";
 
-export async function getAllLog(req, res) {
+async function getAllLog(req, res) {
   const logs = await Log.find({});
   if (!logs) {
     throw new customError.NotFoundError("Logs not found");
   }
   res.status(StatusCodes.OK).json({ logs });
 }
-export async function getSingleLog(req, res) {
+async function getSingleLog(req, res) {
   const { id: logId } = req.params;
   const log = await Log.findOne({ _id: logId });
   if (!log) {
@@ -17,7 +17,7 @@ export async function getSingleLog(req, res) {
   }
   res.status(StatusCodes.OK).json({ log });
 }
-export async function createLog(req, res) {
+async function createLog(req, res) {
   const { product, media } = req.body;
   if (!product || !media) {
     throw new customError.BadRequestError(
@@ -34,7 +34,7 @@ export async function createLog(req, res) {
   }
   res.status(StatusCodes.CREATED).json({ log });
 }
-export async function changeLog(req, res) {
+async function changeLog(req, res) {
   const { id: logId } = req.params;
   const log = await Log.findOneAndUpdate({ _id: logId }, req.body, {
     new: true,
@@ -46,7 +46,7 @@ export async function changeLog(req, res) {
 
   res.status(StatusCodes.OK).json({ log });
 }
-export async function removeAllLog(req, res) {
+async function removeAllLog(req, res) {
   const logs = await Log.deleteMany({});
   if (!logs) {
     throw new customError.NotFoundError("Logs not found");
@@ -54,7 +54,7 @@ export async function removeAllLog(req, res) {
   res.status(StatusCodes.OK).json({ msg: "All logs was deleted" });
 
 }
-export async function removeSingleLog(req, res) {
+async function removeSingleLog(req, res) {
   const { id: logId } = req.params;
   const log = await Log.findOne({ _id: logId });
   if (!log) {
@@ -63,3 +63,15 @@ export async function removeSingleLog(req, res) {
   await log.deleteOne();
   res.status(StatusCodes.OK).json({ msg: "Log deleted" });
 }
+
+
+const logControllers = {
+  getAllLog,
+  getSingleLog,
+  createLog,
+  changeLog,
+  removeAllLog,
+  removeSingleLog
+}
+
+export default logControllers
