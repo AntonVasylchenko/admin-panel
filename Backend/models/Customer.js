@@ -51,6 +51,6 @@ CustomerSchema.methods.comparePassword = async function (canditatePassword) {
     return isMatch;
   };
 
-const Customer = mongoose.model("Customer", CustomerSchema);
+export const Customer = mongoose.model("Customer", CustomerSchema);
 
 export default Customer;

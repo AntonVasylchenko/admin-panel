@@ -1,19 +1,27 @@
 import { Router } from "express";
-import {
-  createProduct,
-  getAllProducts,
-  getSinleProduct,
-  updateProduct,
-  deleteProduct,
-} from "../controllers/productControllers.js";
-import createLog from "../middleware/createLog.js";
+import { createLog } from "../middleware/index.js";
+import { productControllers } from "../controllers/index.js";
 
 const router = Router();
 
-router.get("/", getAllProducts);
-router.post("/", createLog({type: "product", action: "Created" }),createProduct);
-router.get("/:id", getSinleProduct);
-router.patch("/:id",createLog({type: "product", action: "Changed" }),updateProduct);
-router.delete("/:id",createLog({type: "product", action: "Deleted" }),deleteProduct);
+router
+  .route("/")
+  .get(productControllers.getAllProducts)
+  .post(
+    createLog({ type: "product", action: "Created" }),
+    productControllers.createProduct
+  );
+
+router
+  .route("/:id")
+  .get(productControllers.getSinleProduct)
+  .patch(
+    createLog({ type: "product", action: "Changed" }),
+    productControllers.updateProduct
+  )
+  .delete(
+    createLog({ type: "product", action: "Deleted" }),
+    productControllers.deleteProduct
+  );
 
 export default router;

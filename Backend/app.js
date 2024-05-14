@@ -68,6 +68,7 @@ app.use("/api/v1/media", indexJs.mediaRoutes);
 app.use("/api/v1/log", indexJs.logRoutes);
 app.use("/api/v1/collection", indexJs.collectionRoutes);
 app.use("/api/v1/customer", indexJs.customerRoutes);
+app.use("/api/v1/auth", indexJs.authRoutes);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

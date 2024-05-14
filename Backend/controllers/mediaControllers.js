@@ -6,14 +6,14 @@ import StatusCodes from "http-status-codes";
 
 
 
-export async function allMedia(req, res) {
+async function allMedia(req, res) {
   const media = await Media.find({});
   if (!media) {
     throw new customError.BadRequestError("Media not found");
   }
   res.status(StatusCodes.OK).json({ media });
 }
-export async function createMedia(req, res) {
+async function createMedia(req, res) {
   if (!req.files) {
     throw new customError.BadRequestError("Please provide media");
   }
@@ -51,7 +51,7 @@ export async function createMedia(req, res) {
     image: { path: result.secure_url, name:media.name, public_id:result.public_id },
   });
 }
-export async function deleteMedia(req, res) {
+async function deleteMedia(req, res) {
   const {id: mediaId} = req.params;
   const media = await Media.findOne({_id: mediaId});
   if (!media) {
@@ -63,3 +63,11 @@ export async function deleteMedia(req, res) {
   res.status(StatusCodes.OK).json({ msg: "Media deleted" });
 
 }
+
+const mediaControllers = {
+  allMedia,
+  createMedia,
+  deleteMedia
+}
+
+export default mediaControllers

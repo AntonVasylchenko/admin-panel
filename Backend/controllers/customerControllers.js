@@ -1,30 +1,47 @@
-const getAllCustomer = async (req, res) => {
-  res.send("Get all user");
-};
+import { customerModel } from "../models/index.js";
+import customError from "../errors/index.js";
+import StatusCodes from "http-status-codes";
 
-const getSingleCustomer = async (req, res) => {
-  res.send("Get single user");
-};
+async function getAllCustomer(req, res) {
+  const customers = await customerModel
+    .find({ role: "user" })
+    .select("-password");
+  const customersLength = await customerModel.countDocuments({ role: "user" });
 
-const getCurrentCustomer = async (req, res) => {
+  res.status(StatusCodes.OK).json({ customers, count: customersLength });
+}
+
+async function getSingleCustomer(req, res) {
+  const { id: customerId } = req.params;
+  const customer = await customerModel
+    .findOne({ _id: customerId })
+    .select("-password");
+  if (!customer) {
+    throw new customError.NotFoundError(
+      `Not found customer with id: ${customerId}`
+    );
+  }
+  res.status(StatusCodes.OK).json({ customer });
+}
+
+async function getCurrentCustomer(req, res) {
   res.send("Get current user");
-};
+}
 
-const updateCustomer = async (req, res) => {
+async function updateCustomer(req, res) {
   res.send("Update user");
-};
+}
 
-const updateCustomerPassword = async (req, res) => {
+async function updateCustomerPassword(req, res) {
   res.send("Update password user");
-};
+}
 
 const customerContollers = {
-    getAllCustomer,
-    getSingleCustomer,
-    getCurrentCustomer,
-    updateCustomer,
-    updateCustomerPassword,
+  getAllCustomer,
+  getSingleCustomer,
+  getCurrentCustomer,
+  updateCustomer,
+  updateCustomerPassword,
 };
 
-export default customerContollers
-  
+export default customerContollers;

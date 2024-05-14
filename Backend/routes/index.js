@@ -3,3 +3,4 @@ export { default as mediaRoutes } from "./mediaRoutes.js";
 export { default as productRoutes } from "./productRoutes.js";
 export { default as collectionRoutes } from "./collectionRoutes.js";
 export { default as customerRoutes } from "./customerRoutes.js";
+export { default as authRoutes } from "./authRoutes.js";

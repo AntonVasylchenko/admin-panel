@@ -1,20 +1,18 @@
 import { Router } from "express";
-import {
-  getAllLog,
-  getSingleLog,
-  createLog,
-  changeLog,
-  removeAllLog,
-  removeSingleLog,
-} from "../controllers/logContollers.js";
+import { logControllers } from "../controllers/index.js";
 
-const router = Router()
+const router = Router();
 
-router.get("/", getAllLog);
-router.post("/", createLog);
-router.get("/:id", getSingleLog);
-router.patch("/:id", changeLog);
-router.delete("/", removeAllLog);
-router.delete("/:id", removeSingleLog);
+router
+  .route("/")
+  .get(logControllers.getAllLog)
+  .post(logControllers.createLog)
+  .delete(logControllers.removeAllLog);
 
-export default router
+router
+  .route("/:id")
+  .get(logControllers.getSingleLog)
+  .patch(logControllers.changeLog)
+  .delete(logControllers.removeSingleLog);
+
+export default router;
