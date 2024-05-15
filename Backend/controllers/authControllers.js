@@ -2,7 +2,7 @@ import { customerModel } from "../models/index.js";
 import customError from "../errors/index.js";
 import StatusCodes from "http-status-codes";
 import {
-  createTokenUser,
+  createTokenCustomer,
   attachCookiesToResponse,
 } from "../utility/utiltityAuth.js";
 
@@ -23,9 +23,9 @@ async function register(req, res) {
     role,
   });
 
-  const tokenUser = createTokenUser(customer);
-  attachCookiesToResponse({ res, user: tokenUser });
-  res.status(StatusCodes.CREATED).json({ tokenUser });
+  const tokenCustomer = createTokenCustomer(customer);
+  attachCookiesToResponse({ res, customer: tokenCustomer });
+  res.status(StatusCodes.CREATED).json({ tokenCustomer });
 }
 async function login(req, res) {
   const { email, password } = req.body;
@@ -46,9 +46,9 @@ async function login(req, res) {
     throw new customError.UnauthenticatedError("Invalid password");
   }
 
-  const tokenUser = createTokenUser(customer);
-  attachCookiesToResponse({ res, user: tokenUser });
-  res.status(StatusCodes.OK).json({ tokenUser });
+  const tokenCustomer = createTokenCustomer(customer);
+  attachCookiesToResponse({ res, customer: tokenCustomer });
+  res.status(StatusCodes.OK).json({ tokenCustomer });
 }
 async function logout(req, res) {
   res.cookie("token", "logout", {
