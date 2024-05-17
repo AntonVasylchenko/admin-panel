@@ -1,9 +1,11 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 const App: React.FC = () => {
-  return (
+    return (
     <div>
-      <p>hello</p>
+      <p>{import.meta.env.VITE_SOME_KEY}</p>
+      <Outlet/>
     </div>
   )
 }
