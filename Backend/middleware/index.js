@@ -1,4 +1,12 @@
-export { default as notFoundMiddleware } from "./notFound.js";
+import notFoundMiddleware from "./notFound.js";
+
+// export { default as notFoundMiddleware } from "./notFound.js";
 export { default as errorHandlerMiddleware } from "./errorHandler.js";
 export { default as createLog } from "./createLog.js";
 export { default as aurhenticateMiddleware } from "./authentication.js";
+
+const middleware = {
+    notFoundMiddleware
+}
+ 
+export default middleware
