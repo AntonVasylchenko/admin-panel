@@ -1,12 +1,45 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import { ErrorPage } from "./pages";
+import axios from "axios";
+import { endPoints } from "./constant";
+import { getCookie, setCookie } from "./utility";
+
+
+type TokenCustomer = {
+    [key: string]: {
+        firstName: string
+        lastName: string
+        customerId: string
+        role: string
+    }
+}
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
         errorElement: <ErrorPage>Not found page</ErrorPage>,
+        loader: async () => {
+            const isLogin = getCookie("isLogin") === "true"
+            return isLogin
+        },
+        action: async ({ request }) => {
+            try {
+                const formData = await request.formData();
+                const updates = Object.fromEntries(formData);
+                const response = await axios.post(`${endPoints.auth}/login`, updates);
+                const { tokenCustomer } = response.data as TokenCustomer
+                if (tokenCustomer.role != "user") {
+                    setCookie("isLogin", "true");
+                    setCookie("customer", JSON.stringify(tokenCustomer))
+                }
+            } catch (error) {
+                console.log(error);
+            }
+
+            return null;
+        },
         children: [
             {
                 path: "products",

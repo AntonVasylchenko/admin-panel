@@ -10,7 +10,7 @@ const Navigation: React.FC = () => {
                 <ul className='aside__nav-list'>
                     {menuList.map(menuItem => {
                         return (
-                            <NavigationItem path={menuItem.path} name={menuItem.name}/>   
+                            <NavigationItem key={menuItem.name} path={menuItem.path} name={menuItem.name}/>   
                         )
                     })}
                 </ul>
