@@ -87,8 +87,8 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'));
 });
 
-app.use(indexMiddlewareJs.notFoundMiddleware);
-app.use(indexMiddlewareJs.errorHandlerMiddleware);
+// app.use(indexMiddlewareJs.notFoundMiddleware);
+// app.use(indexMiddlewareJs.errorHandlerMiddleware);
 
 async function startApp() {
   try {
