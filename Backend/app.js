@@ -36,10 +36,10 @@ import * as indexJs from "./routes/index.js";
 
 // Middleware
 
-import * as indexMiddlewareJs from "./middleware/index.js";
+// import * as indexMiddlewareJs from "./middleware/index.js";
 
 
-;
+// ;
 const app = express();
 const PORT = process.env.PORT || 3000;
 
