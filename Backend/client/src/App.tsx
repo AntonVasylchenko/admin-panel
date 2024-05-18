@@ -1,10 +1,14 @@
 import React from 'react'
+import { Footer, Header, Main, Navigation } from './component'
 
 const App: React.FC = () => {
   return (
-    <div>
-      <p>hello</p>
-    </div>
+    <>
+      <Header />
+      <Main />
+      <Navigation />
+      <Footer />
+    </>
   )
 }
 
