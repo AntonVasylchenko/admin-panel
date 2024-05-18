@@ -10,7 +10,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "products",
-                element: <ProductLayout />,
+                element: <PageLayout />,
                 children: [
                     {
                         index: true,
@@ -19,6 +19,54 @@ const router = createBrowserRouter([
                     {
                         path: ":productId",
                         element: <div>TTT Product</div>,
+                    }
+                ]
+            },
+            {
+                path: "collection",
+                element: <PageLayout />,
+                children: [
+                    {
+                        index: true,
+                        element: <div>Collection Home</div>,
+                    },
+                    {
+                        path: ":collectionId",
+                        element: <div>TTT Collection</div>,
+                    }
+                ]
+            },
+            {
+                path: "media",
+                element: <PageLayout />,
+                children: [
+                    {
+                        index: true,
+                        element: <div>Media Home</div>,
+                    }
+                ]
+            },
+            {
+                path: "user",
+                element: <PageLayout />,
+                children: [
+                    {
+                        index: true,
+                        element: <div>user Home</div>,
+                    },
+                    {
+                        path: ":userId",
+                        element: <div>TTT user</div>,
+                    }
+                ]
+            },
+            {
+                path: "settings",
+                element: <PageLayout />,
+                children: [
+                    {
+                        index: true,
+                        element: <div>Settings Home</div>,
                     }
                 ]
             }
@@ -30,7 +78,7 @@ const router = createBrowserRouter([
     }
 ]);
 
-function ProductLayout() {
+function PageLayout() {
     return (
         <div>
             <Outlet />

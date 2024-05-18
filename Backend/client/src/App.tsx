@@ -1,12 +1,14 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Footer, Header, Main, Navigation } from './component'
 
 const App: React.FC = () => {
-    return (
-    <div>
-      <p>{import.meta.env.VITE_SOME_KEY}</p>
-      <Outlet/>
-    </div>
+  return (
+    <>
+      <Header />
+      <Main />
+      <Navigation />
+      <Footer />
+    </>
   )
 }
 

@@ -1,6 +1,7 @@
 html,
 body {
-  font: normal 400 16px/1 var(--main-font);
+  font: normal 400 var(--font-size-extra-medium) / var(--line-height-medium)
+    var(--main-font);
   letter-spacing: 0;
   background-color: var(--color-background-html);
 }
@@ -8,12 +9,14 @@ body {
 .primary-button {
   width: fit-content;
   color: var(--color-text-primary);
-  font: normal 600 16px/20px var(--main-font);
+  font: normal 600 var(--font-size-extra-medium) / var(--line-height-medium)
+    var(--main-font);
   box-shadow: var(--box-shadow);
   border-radius: var(--border-radius-small);
   background-color: var(--color-background-primary);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
+
 .primary-button:hover {
   background-color: var(--hover-background-primary);
   box-shadow: var(--hover-box-shadow);
@@ -22,13 +25,15 @@ body {
 .outline-primary-button {
   width: fit-content;
   color: var(--color-text-secondary);
-  font: normal 600 16px/20px var(--main-font);
+  font: normal 600 var(--font-size-extra-medium) / var(--line-height-medium)
+    var(--main-font);
   box-shadow: var(--box-shadow);
   border-radius: var(--border-radius-small);
   border: var(--border-width-small) solid var(--color-border);
   background-color: transparent;
   transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
+
 .outline-primary-button:hover {
   color: var(--color-background-primary);
   border-color: var(--color-background-primary);
@@ -38,12 +43,14 @@ body {
 .secondary-button {
   width: fit-content;
   color: var(--color-text-primary);
-  font: normal 600 16px/20px var(--main-font);
+  font: normal 600 var(--font-size-extra-medium) / var(--line-height-medium)
+    var(--main-font);
   box-shadow: var(--box-shadow);
   border-radius: var(--border-radius-small);
   background-color: var(--color-background-secondary);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
+
 .secondary-button:hover {
   background-color: var(--hover-background-secondary);
   box-shadow: var(--hover-box-shadow);
@@ -54,9 +61,11 @@ body {
   box-shadow: var(--box-shadow-secondary);
   background: var(--color-button-cancel);
   color: var(--color-text-primary);
-  font: normal 600 11px/13px var(--main-font);
+  font: normal 600 var(--font-size-extra-small) / var(--line-height-extra-small)
+    var(--main-font);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
+
 .cancel-button:hover {
   background-color: var(--hover-background-cancel);
   box-shadow: var(--hover-box-shadow);
@@ -67,10 +76,53 @@ body {
   box-shadow: var(--box-shadow-secondary);
   background: var(--color-button-success);
   color: var(--color-text-primary);
-  font: normal 600 11px/13px var(--main-font);
+  font: normal 600 var(--font-size-extra-small) / var(--line-height-extra-small)
+    var(--main-font);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
+
 .success-button:hover {
   background-color: var(--hover-background-success);
   box-shadow: var(--hover-box-shadow);
+}
+
+.field-row {
+  display: flex;
+  width: fit-content;
+  flex-direction: column;
+  row-gap: 8px;
+}
+.field-row__label {
+  color: var(--color-text-secondary);
+  font: normal 600 var(--font-size-medium) / var(--line-height-medium)
+    var(--main-font);
+}
+.field-row__input {
+  border: var(--border-width-small) solid var(--color-border);
+  border-radius: var(--border-radius-medium);
+
+  padding: 14px;
+  color: var(--color-text-secondary);
+  font: normal 500 var(--font-size-medium) / var(--line-height-medium)
+    var(--main-font);
+}
+
+.main-title {
+  font: var(--font-weight-semi-bold) var(--font-size-extra-large) /
+    var(--line-height-extra-large) var(--main-font);
+}
+
+.sub-title {
+  font: var(--line-height-medium) var(--font-size-medium) /
+    var(--font-weight-semi-bold) var(--main-font);
+}
+
+.body-text {
+  font: var(--font-weight-regular) var(--font-size-medium) /
+    var(--line-height-medium) var(--main-font);
+}
+
+.small-text {
+  font: var(--font-weight-medium) var(--font-size-small) /
+    var(--line-height-small) var(--main-font);
 }
