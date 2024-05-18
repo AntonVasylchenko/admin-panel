@@ -36,9 +36,11 @@ import * as indexJs from "./routes/index.js";
 
 // Middleware
 
+
 import middleware, {
   errorHandlerMiddleware,
 } from "./middleware/index.js";
+import notFoundMiddleware from './middleware/notFound.js';
 
 ;
 const app = express();
@@ -88,7 +90,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'));
 });
 
-app.use(middleware.notFoundMiddleware);
+app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
 async function startApp() {
