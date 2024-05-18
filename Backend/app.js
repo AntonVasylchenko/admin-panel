@@ -36,10 +36,8 @@ import * as indexJs from "./routes/index.js";
 
 // Middleware
 
-// import * as indexMiddlewareJs from "./middleware/index.js";
+import * as indexMiddlewareJs from "./middleware/index.js";
 
-
-// ;
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -87,8 +85,8 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'));
 });
 
-// app.use(indexMiddlewareJs.notFoundMiddleware);
-// app.use(indexMiddlewareJs.errorHandlerMiddleware);
+app.use(indexMiddlewareJs.notFoundMiddleware);
+app.use(indexMiddlewareJs.errorHandlerMiddleware);
 
 async function startApp() {
   try {
