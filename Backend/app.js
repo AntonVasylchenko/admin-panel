@@ -35,11 +35,12 @@ import cookieParser from 'cookie-parser';
 import * as indexJs from "./routes/index.js";
 
 // Middleware
-import {
-  notFoundMiddleware,
+
+import middleware, {
   errorHandlerMiddleware,
 } from "./middleware/index.js";
 
+;
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -87,7 +88,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'));
 });
 
-app.use(notFoundMiddleware);
+app.use(middleware.notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
 async function startApp() {
