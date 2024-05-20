@@ -36,9 +36,16 @@ const router = createBrowserRouter([
                 }
             } catch (error) {
                 console.log(error);
+                return {
+                    msg: "Please provide email or password",
+                    typeMsg: "error"
+                }
             }
 
-            return null;
+            return {
+                msg: "Success",
+                typeMsg: "success"
+            };
         },
         children: [
             {
