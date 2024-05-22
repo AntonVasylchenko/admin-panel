@@ -19,4 +19,6 @@ export function getCookie(name: string): string | null {
     return null;
 }
 
-
+export function converToMoney(value:number): string { 
+    return (value / 100) + "$";
+}

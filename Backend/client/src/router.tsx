@@ -1,6 +1,6 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import { ErrorPage } from "./pages";
+import { ErrorPage, Products } from "./pages";
 import axios from "axios";
 import { endPoints } from "./constant";
 import { getCookie, setCookie } from "./utility";
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
                 children: [
                     {
                         index: true,
-                        element: <div>Product Home</div>,
+                        element: <Products />,
                     },
                     {
                         path: ":productId",

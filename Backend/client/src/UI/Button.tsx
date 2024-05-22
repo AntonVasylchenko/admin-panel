@@ -7,9 +7,9 @@ type PropsButton = {
     onClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
-const Button: React.FC<PropsButton> = React.memo(({ children, cssSelector, typeButton, onClick }) => {
+const Button: React.FC<PropsButton> = React.memo(({ children, cssSelector, typeButton, onClick, ...rest }) => {
     return (
-        <button onClick={onClick} type={typeButton} className={cssSelector}>{children}</button>
+        <button onClick={onClick} type={typeButton} className={cssSelector} {...rest} >{children}</button>
     );
 });
 

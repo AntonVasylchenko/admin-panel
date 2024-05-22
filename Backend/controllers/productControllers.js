@@ -4,6 +4,11 @@ import { Product } from "../models/Product.js";
 import customError from "../errors/index.js";
 import StatusCodes from "http-status-codes";
 
+
+
+
+
+
 async function createProduct(req, res) {
   const mediaIds = req.body.media?.split(",") || [];
   const mediaPaths = await Promise.all(

@@ -113,8 +113,8 @@ body {
 }
 
 .sub-title {
-  font: var(--line-height-medium) var(--font-size-medium) /
-    var(--font-weight-semi-bold) var(--main-font);
+  font: var(--font-weight-semi-bold) var(--font-size-medium) /
+    var(--line-height-medium) var(--main-font);
 }
 
 .body-text {
