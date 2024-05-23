@@ -14,8 +14,8 @@ const FilterSelect: React.FC<PropsFilterSelect> = React.memo(({ type, label, nam
     
     return (
         <div className='filter-field'>
-            <label className='filter-field__label' htmlFor={type}>{label}</label>
-            <select className='filter-field__select' onChange={onChange} value={value} name={name} id={type}>
+            <label className='filter-field__label body-text' htmlFor={type}>{label}</label>
+            <select className='filter-field__select body-text' onChange={onChange} value={value} name={name} id={type}>
                 {options.map(option => (
                     <option key={option} value={option}>{option}</option>
                 ))}

@@ -2,8 +2,9 @@ import React from 'react'
 import { Button, FilterSelect } from '../UI'
 import { useFetch } from '../hook'
 import { buildUrl, endPoints, filterProduct } from '../constant'
-import { ProductItem } from '../component'
-
+import { ProductList } from '../component'
+import { Link } from 'react-router-dom'
+import { createArrayFromNumber } from '../utility'
 
 type FilterType = {
     page: number,
@@ -19,7 +20,7 @@ export type ProducItemData = {
     images: string[],
     tags?: string[]
 }
-type ProductsData = {
+export type ProductsData = {
     currentCount: number,
     currnetPage: string,
     maxPages: number,
@@ -42,7 +43,8 @@ const Products: React.FC = () => {
         if (name == "sort" || name == "status") {
             setFilterValue(prev => ({
                 ...prev,
-                [name]: value
+                [name]: value,
+                page: 1
             }));
         }
     }, [setFilterValue])
@@ -60,18 +62,13 @@ const Products: React.FC = () => {
 
     const { status, data } = useFetch(buildUrl(endPoints.products, filterValue));
     const productRespone = data as ProductsData;
-    console.log(status);
-    
 
-    const createArrayFromNumber = (value: number): number[] => {
-        return Array.from({ length: value }, (_v, i) => i + 1);
-    }
 
     return (
         <div className='products'>
-            <h2 className="products__title">Products</h2>
             <div className="products__container">
                 <div className="products__controller">
+                    <Link className='primary-button products__controller-button' to="create">Create new product</Link>
                     <FilterSelect
                         type='sort-filter'
                         label='Sort by'
@@ -90,25 +87,19 @@ const Products: React.FC = () => {
                     />
 
                 </div>
-                <div className='products__list'>
-                    {productRespone.products && productRespone.products.map(product => {
-                        return (
-                            <ProductItem
-                                key={product._id}
-                                _id={product._id}
-                                images={product.images}
-                                title={product.title}
-                                price={product.price}
-                            />
-                        )
-                    })}
+                <ProductList status={status} products={productRespone.products}/>
 
-                </div>
                 <div className='products__pagination'>
                     {
                         createArrayFromNumber(productRespone.maxPages).map(arrayItem => {
                             return (
-                                <Button onClick={handlePagination} data-page={arrayItem} typeButton='button' cssSelector="products__pagination-button outline-primary-button small-text" key={`pagination-${arrayItem}`}>
+                                <Button
+                                    onClick={handlePagination}
+                                    data-page={arrayItem}
+                                    typeButton='button'
+                                    cssSelector={`products__pagination-button outline-primary-button small-text ${arrayItem === filterValue.page ? "products__pagination-button--active" : ""}`}
+                                    key={`pagination-${arrayItem}`}
+                                >
                                     {arrayItem.toString()}
                                 </Button>
                             )

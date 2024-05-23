@@ -19,6 +19,10 @@ export function getCookie(name: string): string | null {
     return null;
 }
 
-export function converToMoney(value:number): string { 
+export function converToMoney(value: number): string {
     return (value / 100) + "$";
+}
+
+export function createArrayFromNumber(value: number): number[] {
+    return Array.from({ length: value }, (_v, i) => i + 1);
 }

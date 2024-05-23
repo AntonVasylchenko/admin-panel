@@ -7,10 +7,6 @@ import "express-async-errors";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-console.log(__filename,__dirname);
-
-
-
 
 // DV
 import { connectDB } from "./db/connect.js";
@@ -65,8 +61,6 @@ app.use(express.static(path.resolve(__dirname, './client/dist')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_KEY));
-
-
 
 app.use(
   fileUpload({
