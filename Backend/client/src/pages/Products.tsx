@@ -1,10 +1,9 @@
 import React from 'react'
-import { Button, FilterSelect } from '../UI'
+import { Pagination,FilterSelect } from '../UI'
 import { useFetch } from '../hook'
 import { buildUrl, endPoints, filterProduct } from '../constant'
 import { ProductList } from '../component'
 import { Link } from 'react-router-dom'
-import { createArrayFromNumber } from '../utility'
 
 type FilterType = {
     page: number,
@@ -87,25 +86,13 @@ const Products: React.FC = () => {
                     />
 
                 </div>
-                <ProductList status={status} products={productRespone.products}/>
-
-                <div className='products__pagination'>
-                    {
-                        createArrayFromNumber(productRespone.maxPages).map(arrayItem => {
-                            return (
-                                <Button
-                                    onClick={handlePagination}
-                                    data-page={arrayItem}
-                                    typeButton='button'
-                                    cssSelector={`products__pagination-button outline-primary-button small-text ${arrayItem === filterValue.page ? "products__pagination-button--active" : ""}`}
-                                    key={`pagination-${arrayItem}`}
-                                >
-                                    {arrayItem.toString()}
-                                </Button>
-                            )
-                        })
-                    }
-                </div>
+                <ProductList status={status} products={productRespone.products} />
+                <Pagination 
+                    maxPage={productRespone.maxPages}
+                    currentPage={filterValue.page}
+                    onClick={handlePagination}
+                    type='product'
+                />
             </div>
         </div>
     )

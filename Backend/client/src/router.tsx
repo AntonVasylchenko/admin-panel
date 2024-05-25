@@ -1,7 +1,7 @@
-import { Outlet, createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import { ErrorPage, Products } from "./pages";
 import axios from "axios";
+import { ErrorPage, Products } from "./pages";
+import { Outlet, createBrowserRouter } from "react-router-dom";
 import { endPoints } from "./constant";
 import { getCookie, setCookie } from "./utility";
 
@@ -20,10 +20,13 @@ const router = createBrowserRouter([
         path: "/",
         element: <App />,
         errorElement: <ErrorPage>Not found page</ErrorPage>,
+        id: "root",
         loader: async () => {
+            const response = await axios(`${endPoints.log}`);
             const isLogin = getCookie("isLogin") === "true"
-            return isLogin
+            return { isLogin, log: response.data.logs }
         },
+
         action: async ({ request }) => {
             try {
                 const formData = await request.formData();

@@ -13,6 +13,7 @@ import settings from "./../icon/settings.svg";
 import tooltip from "./../icon/tooltip.svg";
 import trash from "./../icon/trash.svg";
 import user from "./../icon/user.svg";
+import notification from "./../icon/notification.svg";
 
 type IconType = {
     [key: string]: string;
@@ -32,6 +33,7 @@ const icons: IconType = {
     tooltip,
     trash,
     user,
+    notification
 };
 
 type PropsIcon = {

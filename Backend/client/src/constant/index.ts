@@ -8,9 +8,9 @@ type FilterProduct = {
 }
 
 export const filterProduct: FilterProduct = {
-    sort: ["none","latest", "oldest", "a-z", "z-a"],
+    sort: ["none", "latest", "oldest", "a-z", "z-a"],
     status: ["all", "draft", "active"],
-    amount: [5,10,15,20,30,40,50]
+    amount: [5, 10, 15, 20, 30, 40, 50]
 }
 
 export const endPoints: { [key: string]: string } = {
@@ -45,11 +45,16 @@ export const menuList: { name: string, path: string }[] = [
     }
 ]
 
-export function buildUrl<T extends Record<string, string | number> >(url:string, params:T): string {
+export function buildUrl<T extends Record<string, string | number>>(url: string, params: T): string {
     let newUrl = new URL(url);
-    (Object.keys(params) as Array<keyof T>).forEach( key => {
+    (Object.keys(params) as Array<keyof T>).forEach(key => {
         newUrl.searchParams.append(key.toString(), params[key].toString())
     })
 
     return newUrl.toString()
-} 
+}
+
+export function findName(array: { name: string, path: string }[], value: string): string {
+    const correctObj = [...array].filter(element => element.path === value);
+    return correctObj[0]?.name || "Dashboard"
+}
