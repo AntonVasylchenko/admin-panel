@@ -52,3 +52,8 @@ export function tranformFormatDate(dateString: string):string {
         
     return `${year}-${month}-${day}`
 }
+
+
+export function createClasses(...rest:string[]): string {
+    return rest.join(" ");
+}

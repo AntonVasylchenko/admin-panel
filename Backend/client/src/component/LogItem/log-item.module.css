@@ -1,0 +1,33 @@
+.log_item {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  padding: var(--spacing-small);
+  border: var(--border-width-medium) solid var(--color-border);
+  border-radius: var(--border-radius-medium);
+  max-width: 300px;
+  margin: var(--spacing-medium);
+  font-family: var(--main-font);
+  color: var(--color-text-secondary);
+}
+.log_item span {
+  margin-bottom: var(--spacing-small);
+}
+
+.position {
+  font-weight: var(--font-weight-semi-bold);
+  color: var(--color-text-secondary);
+}
+
+.log_type {
+  color: var(--color-text-success);
+}
+
+.action {
+  color: var(--color-text-alert);
+}
+
+.timestamp {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-medium);
+}

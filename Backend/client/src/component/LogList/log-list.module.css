@@ -1,0 +1,28 @@
+.log_list {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 24px;
+  right: 0;
+  row-gap: 20px;
+
+  background-color: #fff;
+  border: 1px solid #000;
+  box-shadow: 0 0 5px 5px #000;
+  padding: 20px;
+  transition: all 0.3s linear;
+  white-space: nowrap;
+  z-index: var(--z-index-level-4);
+}
+.log_list__grid {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  overflow: auto;
+}
+.log_list__button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Pagination,FilterSelect } from '../UI'
+import { Pagination, FilterSelect } from '../UI'
 import { useFetch } from '../hook'
 import { buildUrl, endPoints, filterProduct } from '../constant'
 import { ProductList } from '../component'
@@ -59,9 +59,7 @@ const Products: React.FC = () => {
 
     }, [setFilterValue])
 
-    const { status, data } = useFetch(buildUrl(endPoints.products, filterValue));
-    const productRespone = data as ProductsData;
-
+    const { status, data } = useFetch<ProductsData>(buildUrl(endPoints.products, filterValue));
 
     return (
         <div className='products'>
@@ -86,13 +84,15 @@ const Products: React.FC = () => {
                     />
 
                 </div>
-                <ProductList status={status} products={productRespone.products} />
-                <Pagination 
-                    maxPage={productRespone.maxPages}
-                    currentPage={filterValue.page}
-                    onClick={handlePagination}
-                    type='product'
-                />
+                {data && <ProductList status={status} products={data.products} />}
+                {data &&
+                    <Pagination
+                        maxPage={data.maxPages}
+                        currentPage={filterValue.page}
+                        onClick={handlePagination}
+                        type='product'
+                    />
+                }
             </div>
         </div>
     )

@@ -1,8 +1,10 @@
 export { default as Header } from "./Header"
 export { default as Navigation } from "./Navigation"
 export { default as Main } from "./Main"
-export { default as Footer } from "./Footer"
 export { default as LogIn } from "./LogIn"
 export { default as ProductItem } from "./ProductItem"
 export { default as ProductItemFake } from "./ProductItemFake"
 export { default as ProductList } from "./ProductList"
+
+export { default as LogItem } from "./LogItem/LogItem"
+export { default as LogList } from "./LogList/LogList"

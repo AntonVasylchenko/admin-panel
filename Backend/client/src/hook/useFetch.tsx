@@ -1,24 +1,24 @@
 import React from "react";
 import axios from 'axios';
 
-type UseFetchType = {
+type UseFetchType<ApiResponse> = {
     status: "loading" | "success" | "error",
-    data: {} | []
+    data: ApiResponse | null
 }
 
-const useFetch = (endpoint: string): UseFetchType => {
+const useFetch = <ApiResponse,>(endpoint: string): UseFetchType<ApiResponse> => {
     const [status, setStatus] = React.useState<"loading" | "success" | "error">("loading");
-    const [data, setData] = React.useState<{}>({});
+    const [data, setData] = React.useState<ApiResponse | null>(null);
 
     const fetchData = async () => {
         try {
             if (endpoint === "") return;
             const response = await axios.get(endpoint);
-            
+
             setData(response.data);
             setStatus("success");
         } catch (error) {
-            setData({});
+            setData(null);
             setStatus("error");
         }
     }
