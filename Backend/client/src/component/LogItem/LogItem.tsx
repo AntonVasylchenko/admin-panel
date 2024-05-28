@@ -1,7 +1,7 @@
 import React from 'react'
-import style from "./log-item.module.css";
+import style from "./style.module.css";
 
-import { PropsLogType } from "./log-item-type";
+import { PropsLogType } from "./type";
 import { Link } from 'react-router-dom';
 import { tranformFormatDate, createClasses } from '../../utility';
 

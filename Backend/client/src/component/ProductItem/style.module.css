@@ -1,0 +1,30 @@
+.product {
+  padding: var(--spacing-extra-small);
+  box-sizing: border-box;
+  border: var(--border-width-small) solid var(--color-border);
+  border-radius: var(--border-radius-medium);
+
+  box-shadow: var(--box-shadow);
+  color: var(--color-text-secondary);
+}
+
+.product__container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.product__image {
+  width: 72px;
+  height: 72px;
+  min-height: 72px;
+  position: relative;
+  margin-right: var(--spacing-extra-small);
+}
+
+.product__image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}

@@ -1,6 +1,6 @@
 import React from 'react'
-import { PropsLogListType } from "./log-list-type"
-import style from "./log-list.module.css"
+import { PropsLogListType } from "./type"
+import style from "./style.module.css"
 import { Button } from '../../UI'
 import { createClasses } from '../../utility'
 import LogItem from '../LogItem/LogItem'

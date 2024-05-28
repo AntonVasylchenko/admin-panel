@@ -1,0 +1,39 @@
+.message-bar {
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  transform: translate(-50%);
+  padding: var(--spacing-medium) var(--spacing-large);
+  border-radius: var(--border-radius-medium);
+}
+
+.message-bar--error {
+  background-color: var(--hover-background-cancel);
+}
+.message-bar--success {
+  background-color: var(--hover-background-success);
+}
+
+.message-bar__progress {
+  height: 2px;
+  width: 0;
+  animation-name: progress;
+  animation-timing-function: linear;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+  transition: width 3s linear;
+  background-color: var(--color-button-neutral);
+}
+.message-bar__text {
+  color: var(--color-text-primary);
+}
+
+@keyframes progress {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}

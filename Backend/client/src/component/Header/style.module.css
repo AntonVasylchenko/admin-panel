@@ -1,0 +1,40 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: var(--spacing-extra-small);
+  width: 100%;
+}
+.header__title {
+  flex: 1;
+  text-transform: uppercase;
+}
+.header__customer {
+  position: relative;
+}
+.header__customer:hover .header__customer_menu {
+  opacity: 1;
+  visibility: visible;
+}
+.header__customer_name {
+  border-radius: 50px;
+  padding: 5px;
+  background-color: var(--color-background-secondary);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+.header__customer_menu {
+  position: absolute;
+  top: 27px;
+  right: 0;
+  background-color: var(--color-background-top-bar);
+  box-shadow: var(--hover-box-shadow);
+  padding: var(--spacing-extra-small);
+  border-radius: var(--border-radius-small);
+  opacity: 0;
+  transition: all 0.3s linear;
+  visibility: hidden;
+}
+.header__customer_menu__button {
+  white-space: nowrap;
+}

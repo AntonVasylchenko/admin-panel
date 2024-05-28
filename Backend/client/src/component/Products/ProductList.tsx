@@ -1,16 +1,11 @@
 import React from 'react'
-import { ProducItemData } from "./../pages/Products"
-import { ProductItem, ProductItemFake } from './../component/index'
-import { createArrayFromNumber } from '../utility'
+import style from "./style.module.css"
+import { PropsProducts } from "./type"
+import { ProductItem, ProductItemFake } from '../index'
+import { createArrayFromNumber } from '../../utility'
 
 
-
-type Props = {
-    status: 'loading' | 'success' | 'error';
-    products: ProducItemData[];
-};
-
-const ProductList: React.FC<Props> = ({ status, products = [] }) => {
+const ProductList: React.FC<PropsProducts> = ({ status, products = [] }) => {
     const renderLoading = () =>
         createArrayFromNumber(12).map((_item, index) => (
             <ProductItemFake key={`product-fake-${index}`} />
@@ -42,7 +37,7 @@ const ProductList: React.FC<Props> = ({ status, products = [] }) => {
         }
     };
 
-    return <div className="products__list">{renderContent()}</div>;
+    return <div className={style.products__list}>{renderContent()}</div>;
 };
 
 export default ProductList;

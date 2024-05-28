@@ -1,6 +1,6 @@
-export { default as IconList } from "./IconList";
-export { default as Button } from "./Button";
-export { default as InputField } from "./InputField";
-export { default as MessageBar } from "./MessageBar"
-export { default as FilterSelect } from "./FilterSelect"
-export { default as Pagination } from "./Pagination"
+export { default as IconList } from "./Icons/IconList";
+export { default as Button } from "./Button/Button";
+export { default as InputField } from "./Input/InputField";
+export { default as MessageBar } from "./Message/MessageBar"
+export { default as FilterSelect } from "./Filter/FilterSelect"
+export { default as Pagination } from "./Pagination/Pagination"

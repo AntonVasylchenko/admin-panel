@@ -1,0 +1,13 @@
+.aside__item:last-child {
+  margin-top: auto;
+}
+.aside__item a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+}
+.aside__item a.active span {
+  font-weight: var(--font-weight-semi-bold);
+}

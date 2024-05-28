@@ -1,0 +1,27 @@
+.products {
+
+}
+.products__controller {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  column-gap: var(--spacing-extra-small);
+  row-gap: var(--spacing-extra-small);
+}
+.products__controller_button {
+  margin-right: auto;
+  padding: var(--spacing-extra-small) var(--spacing-extra-large);
+}
+
+@media (max-width: 768px) {
+  .products__controller {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    row-gap: var(--spacing-extra-small);
+  }
+  .products__controller > * {
+    width: 100%;
+    max-width: 100%;
+  }
+}

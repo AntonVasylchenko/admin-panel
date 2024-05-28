@@ -1,18 +1,20 @@
 import React from 'react'
+import { ProductLogs } from "./type"
+import style from "./style.module.css"
+
 import axios from 'axios';
 import { useSubmit, useLocation, useRouteLoaderData } from 'react-router-dom'
-import { useStore } from '../store';
+import { useStore } from '../../store';
 
-import { endPoints, findName, menuList } from '../constant';
-import { createCustomerFromCookie, deleteCookie } from '../utility';
-import { Button, IconList } from '../UI';
-import { Log } from '../App';
-import { LogList } from '.';
+import { endPoints, findName, menuList } from '../../constant';
+import { createCustomerFromCookie, deleteCookie, createClasses } from '../../utility';
+import { Button, IconList } from '../../UI';
+import { LogList } from '..';
 
 
 
 const Header: React.FC = () => {
-  const { log: productLogs = [] } = useRouteLoaderData("root") as { isLogin: boolean, log: Log[] };
+  const { log: productLogs = [] } = useRouteLoaderData("root") as ProductLogs;
 
   const submit = useSubmit();
   const { pathname } = useLocation();
@@ -35,22 +37,22 @@ const Header: React.FC = () => {
   }
 
   return (
-    <header className='header'>
-      <h1 className='header__title main-title'>{titlePage}</h1>
-      <div className='header__notification'>
+    <header className={createClasses(style.header, 'header')}>
+      <h1 className={createClasses(style.header__title, 'main-title')}>{titlePage}</h1>
+      <div className="header__notification">
         <IconList type='notification' />
         <LogList logList={productLogs} />
       </div>
-      <div className='header__customer'>
-        <div className="header__customer-name small-text">
+      <div className={style.header__customer}>
+        <div className={createClasses(style.header__customer_name, 'small-text')}>
           <span>{firstName.slice(0, 1)}</span>
           <span>{lastName.slice(0, 1)}</span>
         </div>
-        <div className="header__customer-menu">
+        <div className={style.header__customer_menu}>
           <Button
             onClick={handleLogOut}
             typeButton='button'
-            cssSelector='header__customer-menu__button body-text'
+            cssSelector={createClasses(style.header__customer_menu__button, "body-text")}
           >
             Log out
           </Button>

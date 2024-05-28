@@ -1,13 +1,10 @@
 import React from 'react'
-
-
-type PropsErrorPage = {
-    children: string
-}
+import style from "./style.module.css"
+import { PropsErrorPage } from "./type"
 
 const ErrorPage: React.FC<PropsErrorPage> = ({ children }) => {
     return (
-        <div>{children}</div>
+        <div className={style.error}>{children}</div>
     )
 }
 

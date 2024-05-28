@@ -1,5 +1,7 @@
 import React from 'react';
-import { useStore } from '../store';
+import "./style.css"
+import { useStore } from '../../store';
+
 
 const MessageBar: React.FC = () => {
     const { message, changeMessage } = useStore();

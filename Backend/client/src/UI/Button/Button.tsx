@@ -1,11 +1,7 @@
 import React from 'react';
+import "./style.css"
+import { PropsButton } from "./type"
 
-type PropsButton = {
-    children: string,
-    cssSelector: string,
-    typeButton: "button" | "submit" | "reset",
-    onClick?: React.MouseEventHandler<HTMLButtonElement>
-}
 
 const Button: React.FC<PropsButton> = React.memo(({ children, cssSelector, typeButton, onClick, ...rest }) => {
     return (

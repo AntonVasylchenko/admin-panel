@@ -1,14 +1,9 @@
 import React from 'react'
-import { createArrayFromNumber } from '../utility';
-import Button from './Button';
+import "./style.css"
+import { PropsPagination } from "./type"
+import { createArrayFromNumber } from '../../utility';
+import Button from '../Button/Button';
 
-
-type PropsPagination = {
-    maxPage: number,
-    currentPage: number,
-    type: string,
-    onClick: React.MouseEventHandler<HTMLButtonElement>;
-}
 const Pagination: React.FC<PropsPagination> = ({ maxPage, currentPage, type, onClick }) => {
     return (
         <div className='pagination'>

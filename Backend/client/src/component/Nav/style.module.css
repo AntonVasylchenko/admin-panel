@@ -1,0 +1,15 @@
+.aside {
+}
+.aside__nav {
+  height: 100%;
+  border: var(--border-width-medium) solid var(--color-background-primary);
+  border-radius: var(--border-radius-medium);
+  padding: var(--spacing-double-extra-large);
+}
+
+.aside__nav_list {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-extra-small);
+  height: 100%;
+}

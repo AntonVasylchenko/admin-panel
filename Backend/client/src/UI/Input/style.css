@@ -1,0 +1,21 @@
+.field-row {
+  display: flex;
+  width: fit-content;
+  flex-direction: column;
+  row-gap: 8px;
+  width: 100%;
+}
+.field-row__label {
+  color: var(--color-text-secondary);
+  font: normal 600 var(--font-size-medium) / var(--line-height-medium)
+    var(--main-font);
+}
+.field-row__input {
+  border: var(--border-width-small) solid var(--color-border);
+  border-radius: var(--border-radius-medium);
+
+  padding: 14px;
+  color: var(--color-text-secondary);
+  font: normal 500 var(--font-size-medium) / var(--line-height-medium)
+    var(--main-font);
+}

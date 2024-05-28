@@ -1,31 +1,13 @@
 import React from 'react'
-import { Pagination, FilterSelect } from '../UI'
-import { useFetch } from '../hook'
-import { buildUrl, endPoints, filterProduct } from '../constant'
-import { ProductList } from '../component'
+import style from "./style.module.css"
+import { FilterType, ProductsData } from "./type"
+
+import { Pagination, FilterSelect } from '../../UI'
+import { useFetch } from '../../hook'
+import { buildUrl, endPoints, filterProduct } from '../../constant'
+import { ProductList } from '../../component'
 import { Link } from 'react-router-dom'
-
-type FilterType = {
-    page: number,
-    limit: number,
-    sort: string,
-    status: string
-}
-
-export type ProducItemData = {
-    _id: string,
-    title: string,
-    price: number,
-    images: string[],
-    tags?: string[]
-}
-export type ProductsData = {
-    currentCount: number,
-    currnetPage: string,
-    maxPages: number,
-    products: ProducItemData[],
-    totalProduct: number
-}
+import { createClasses } from '../../utility'
 
 const Products: React.FC = () => {
     const [filterValue, setFilterValue] = React.useState<FilterType>({
@@ -36,7 +18,7 @@ const Products: React.FC = () => {
     })
 
     const handleSort = React.useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
-        const target = event.target;
+        const target = event.target as HTMLSelectElement;
         const { name, value } = target
 
         if (name == "sort" || name == "status") {
@@ -62,10 +44,15 @@ const Products: React.FC = () => {
     const { status, data } = useFetch<ProductsData>(buildUrl(endPoints.products, filterValue));
 
     return (
-        <div className='products'>
-            <div className="products__container">
-                <div className="products__controller">
-                    <Link className='primary-button products__controller-button' to="create">Create new product</Link>
+        <div className={style.products}>
+            <div className={style.products__container}>
+                <div className={style.products__controller}>
+                    <Link
+                        className={createClasses(style.products__controller_button, 'primary-button')}
+                        to="create"
+                    >
+                        Create new product
+                    </Link>
                     <FilterSelect
                         type='sort-filter'
                         label='Sort by'
