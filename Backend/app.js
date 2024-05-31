@@ -10,6 +10,7 @@ const __dirname = path.dirname(__filename);
 
 // DV
 import { connectDB } from "./db/connect.js";
+console.log(1);
 
 // File
 import fileUpload from "express-fileupload";
