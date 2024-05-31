@@ -50,11 +50,16 @@ app.use(
     max: 60,
   })
 );
-app.use(helmet.contentSecurityPolicy({
-  directives: {
-      imgSrc: ["'self'", '*.res.cloudinary.com', '*.google.com']
-  }
-}));
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        "img-src": ["'self'", "s3.amazonaws.com"],
+      },
+    },
+  })
+);
 app.use(cors());
 app.use(xss());
 
