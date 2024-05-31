@@ -52,7 +52,7 @@ app.use(
 );
 app.use(helmet.contentSecurityPolicy({
   directives: {
-      imgSrc: ["'self'", '*.unsplash.com', '*.google.com']
+      imgSrc: ["'self'", '*.res.cloudinary.com', '*.google.com']
   }
 }));
 app.use(cors());
