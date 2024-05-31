@@ -4,3 +4,4 @@ export { default as InputField } from "./Input/InputField";
 export { default as MessageBar } from "./Message/MessageBar"
 export { default as FilterSelect } from "./Filter/FilterSelect"
 export { default as Pagination } from "./Pagination/Pagination"
+export { default as Loader } from "./Loader/Loader"

@@ -5,7 +5,8 @@ type InputFieldType =
     | 'email'
     | 'tel'
     | 'url'
-    | 'search';
+    | 'search'
+    | 'file';
 
 export type PropsInputField = {
     type: InputFieldType;

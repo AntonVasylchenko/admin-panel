@@ -1,7 +1,7 @@
 import App from "./App";
 import axios from "axios";
-import { ErrorPage, Products } from "./pages";
-import { Outlet, createBrowserRouter } from "react-router-dom";
+import { ErrorPage, Products, Media, AddMedia } from "./pages";
+import { Outlet, createBrowserRouter, redirect } from "react-router-dom";
 import { endPoints } from "./constant";
 import { getCookie, setCookie } from "./utility";
 
@@ -89,7 +89,14 @@ const router = createBrowserRouter([
                 children: [
                     {
                         index: true,
-                        element: <div>Media Home</div>,
+                        element: <Media />,
+                    },
+                    {
+                        path: "add",
+                        element: <AddMedia/>,
+                        action: async () => {
+                           return redirect("/media")
+                        } 
                     }
                 ]
             },
