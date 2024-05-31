@@ -10,7 +10,6 @@ const __dirname = path.dirname(__filename);
 
 // DV
 import { connectDB } from "./db/connect.js";
-console.log(1);
 
 // File
 import fileUpload from "express-fileupload";
@@ -53,10 +52,6 @@ app.use(
 );
 app.use(helmet.contentSecurityPolicy({
   directives: {
-      defaultSrc: ["'self'"],
-      scriptSrcElem: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      connectSrc: ['www.googleapis.com'],
       imgSrc: ["'self'", '*.unsplash.com', '*.google.com']
   }
 }));
