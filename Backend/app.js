@@ -50,7 +50,15 @@ app.use(
     max: 60,
   })
 );
-app.use(helmet());
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+      defaultSrc: ["'self'"],
+      scriptSrcElem: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      connectSrc: ['www.googleapis.com'],
+      imgSrc: ["'self'", '*.unsplash.com', '*.google.com']
+  }
+}));
 app.use(cors());
 app.use(xss());
 
