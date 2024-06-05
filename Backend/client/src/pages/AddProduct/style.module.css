@@ -1,0 +1,42 @@
+.productForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  row-gap: 25px;
+}
+
+.formRow {
+  width: 100%;
+}
+
+.formRowSelect {
+  display: flex;
+  width: fit-content;
+  flex-direction: column;
+  row-gap: 8px;
+  width: 100%;
+}
+
+.formRowSelect label {
+  color: var(--color-text-secondary);
+  font: normal 600 var(--font-size-medium) / var(--line-height-medium)
+    var(--main-font);
+}
+
+.formRowSelect select {
+  border: var(--border-width-small) solid var(--color-border);
+  border-radius: var(--border-radius-medium);
+
+  padding: 14px;
+  color: var(--color-text-secondary);
+  font: normal 500 var(--font-size-medium) / var(--line-height-medium)
+    var(--main-font);
+
+    -moz-appearance:none !important;
+    -webkit-appearance: none !important; 
+    appearance: none !important;
+}
+.formButton {
+  margin-left: auto;
+  padding: var(--spacing-extra-small) var(--spacing-extra-large);
+}

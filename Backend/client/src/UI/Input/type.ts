@@ -26,5 +26,6 @@ export type PropsInputField = {
     pattern?: string;
     autoComplete?: 'on' | 'off';
     inputMode?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search';
-    cssSelector?: string
+    cssSelector?: string,
+    defaultValue?: string | number;
 };

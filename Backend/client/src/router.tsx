@@ -1,6 +1,6 @@
 import App from "./App";
 import axios from "axios";
-import { ErrorPage, Products, Media, AddMedia } from "./pages";
+import { ErrorPage, Products, Media, AddMedia, AddProduct } from "./pages";
 import { Outlet, createBrowserRouter, redirect } from "react-router-dom";
 import { endPoints } from "./constant";
 import { getCookie, setCookie } from "./utility";
@@ -61,7 +61,11 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "create",
-                        element: <div>Creat Product</div>,
+                        element: <AddProduct />,
+                        action: async ({ request}) => {
+                            const id = await request.text();                                            
+                            return redirect(`/products/${id}`)
+                        }
                     },
                     {
                         path: ":productId",
@@ -93,10 +97,10 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "add",
-                        element: <AddMedia/>,
+                        element: <AddMedia />,
                         action: async () => {
-                           return redirect("/media")
-                        } 
+                            return redirect("/media")
+                        }
                     }
                 ]
             },

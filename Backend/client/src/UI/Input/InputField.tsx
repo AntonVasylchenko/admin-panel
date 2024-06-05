@@ -20,7 +20,8 @@ const InputField: React.FC<PropsInputField> = ({
     pattern,
     autoComplete,
     inputMode,
-    cssSelector
+    cssSelector,
+    defaultValue
 }) => {
     const id = `input-${name}-${Math.random().toString(36).substr(2, 9)}`;
 
@@ -31,6 +32,7 @@ const InputField: React.FC<PropsInputField> = ({
                 className='field-row__input'
                 type={type}
                 name={name}
+                defaultValue={defaultValue}
                 id={id}
                 placeholder={placeholder}
                 value={value}

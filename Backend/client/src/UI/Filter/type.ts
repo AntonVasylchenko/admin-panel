@@ -3,6 +3,8 @@ export type PropsFilterSelect = {
     label: string;
     name: string;
     options: string[];
-    value: string;
-    onChange: React.ChangeEventHandler<HTMLSelectElement>;
+    value?: string;
+    cssSelector?: string,
+    defaultValue?: string,
+    onChange?: React.ChangeEventHandler<HTMLSelectElement>;
 };
