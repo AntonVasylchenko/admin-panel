@@ -6,11 +6,10 @@ import axios from 'axios';
 import { useSubmit, useLocation, useRouteLoaderData } from 'react-router-dom'
 import { useStore } from '../../store';
 
-import { endPoints, findName, menuList } from '../../constant';
-import { createCustomerFromCookie, deleteCookie, createClasses } from '../../utility';
+import { endPoints, menuList } from '../../constant';
+import { createCustomerFromCookie, deleteCookie, createClasses, findName } from '../../utility';
 import { Button, IconList } from '../../UI';
 import { LogList } from '..';
-
 
 
 const Header: React.FC = () => {

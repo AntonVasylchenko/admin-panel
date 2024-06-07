@@ -5,6 +5,9 @@ import { createArrayFromNumber } from '../../utility';
 import Button from '../Button/Button';
 
 const Pagination: React.FC<PropsPagination> = ({ maxPage, currentPage, type, onClick }) => {
+    if (maxPage === currentPage ) {
+        return <></>
+    }
     return (
         <div className='pagination'>
             {

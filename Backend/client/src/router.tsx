@@ -1,6 +1,6 @@
 import App from "./App";
 import axios from "axios";
-import { ErrorPage, Products, Media, AddMedia, AddProduct } from "./pages";
+import { ErrorPage, Products, Media, AddMedia, AddProduct,ViewProduct } from "./pages";
 import { Outlet, createBrowserRouter, redirect } from "react-router-dom";
 import { endPoints } from "./constant";
 import { getCookie, setCookie } from "./utility";
@@ -69,7 +69,7 @@ const router = createBrowserRouter([
                     },
                     {
                         path: ":productId",
-                        element: <div>TTT Product</div>,
+                        element: <ViewProduct/>
                     }
                 ]
             },

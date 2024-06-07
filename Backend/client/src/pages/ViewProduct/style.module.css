@@ -1,0 +1,14 @@
+.product {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.info,
+.media {
+  width: 100%;
+  max-width: 50%;
+}
+
+.productModal {
+  
+}

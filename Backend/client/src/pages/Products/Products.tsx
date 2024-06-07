@@ -4,10 +4,10 @@ import { FilterType, ProductsData } from "./type"
 
 import { Pagination, FilterSelect } from '../../UI'
 import { useFetch } from '../../hook'
-import { buildUrl, endPoints, filterProduct } from '../../constant'
+import { endPoints, filterProduct } from '../../constant'
 import { ProductList } from '../../component'
 import { Link } from 'react-router-dom'
-import { createClasses } from '../../utility'
+import { buildUrl, createClasses } from '../../utility'
 
 const Products: React.FC = () => {
     const [filterValue, setFilterValue] = React.useState<FilterType>({

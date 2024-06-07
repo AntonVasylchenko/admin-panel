@@ -1,24 +1,26 @@
 import React from 'react'
 import style from "./style.module.css"
-import { TypeProductForm, FormElement, ServerError } from "./type";
+import { TypeProductForm, FormElement, ServerError, MediaData,PropsModal } from "./type";
 
 import axios, { AxiosError } from 'axios';
-import { InputField, FilterSelect, TextField, Button } from '../../UI'
+import { InputField, FilterSelect, TextField, Button, Loader, Modal } from '../../UI'
 import { createClasses } from '../../utility'
-import { endPoints } from '../../constant';
+import { endPoints, listOfStatus } from '../../constant';
 import { useStore } from '../../store';
-import { useSubmit } from 'react-router-dom';
+import { Link, useSubmit } from 'react-router-dom';
+import { useFetch } from '../../hook';
 
-
-
-
-const listOfStatus = ['draft', "active"];
 const AddProduct: React.FC = () => {
+    const { status, data } = useFetch<MediaData>(endPoints.media);
+    const [show, setShow] = React.useState<boolean>(false);
+    const [listMedia, setListMedia] = React.useState<string[]>([]);
     const { changeMessage } = useStore();
     const submit = useSubmit();
+
     const [productForm, setProductForm] = React.useState<TypeProductForm>({
+        media: "",
         title: "",
-        price: null,
+        price: 0,
         tags: "",
         description: "",
         status: "draft"
@@ -47,13 +49,41 @@ const AddProduct: React.FC = () => {
                     messageError = msg;
                 }
             }
-
             changeMessage(messageError, "error");
         }
+    }
+    const handleShow = (): void => {
+        setShow(prev => !prev);
+    }
+    const handleMedia = React.useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
+        const { value } = event.target;
+        setListMedia(prevList =>
+            prevList.includes(value)
+                ? prevList.filter(el => el !== value)
+                : [...prevList, value]
+        );
+    }, [setListMedia]);
+
+    React.useEffect(() => {
+        if (listMedia) {
+            setProductForm(prev => ({
+                ...prev,
+                media: listMedia.join(",")
+            }))
+        }
+    }, [listMedia])
+
+
+    if (status == "loading" || data === null) {
+        return <Loader />
     }
 
     return (
         <div className={style.productForm}>
+            <div className={style.formRow}>
+                <Button typeButton='button' onClick={handleShow} cssSelector={createClasses(style.button, "primary-button")}>Add media</Button>
+                <ModalComponent show={show} handleShow={handleShow} handleMedia={handleMedia} data={data}/>
+            </div>
             <div className={style.formRow}>
                 <InputField
                     type='text'
@@ -68,7 +98,7 @@ const AddProduct: React.FC = () => {
                     type='number'
                     name="price"
                     label='Price'
-                    value=""
+                    value={productForm.price}
                     onChange={handleForm}
                 />
             </div>
@@ -109,6 +139,38 @@ const AddProduct: React.FC = () => {
                 Create
             </Button>
         </div>
+    )
+}
+
+
+const ModalComponent: React.FC<PropsModal> = ({show,handleShow,handleMedia,data}) => { 
+    return (
+        <Modal isActive={show} onClick={handleShow}>
+            <div className={style.productModal}>
+                <Button cssSelector={createClasses(style.modalClose, 'outline-primary-button')} typeButton='button' onClick={handleShow}>X</Button>
+                {
+                    data.media.length == 0
+                        ? <div className={style.modalMessage}>
+                            <Link to="/media">The media list is empty. Please upload media</Link>
+                        </div>
+                        :
+                        <div className={style.modalImages}>
+                            {
+                                data.media.map(media => {
+                                    return (
+                                        <div key={media._id} className={style.modalItem}>
+                                            <input type="checkbox" onChange={handleMedia} id={media._id} value={media._id} />
+                                            <label htmlFor={media._id}>
+                                                <img src={media.path} alt={media.name} loading='lazy' />
+                                            </label>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                }
+            </div>
+        </Modal>
     )
 }
 

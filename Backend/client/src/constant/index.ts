@@ -45,16 +45,4 @@ export const menuList: { name: string, path: string }[] = [
     }
 ]
 
-export function buildUrl<T extends Record<string, string | number>>(url: string, params: T): string {
-    let newUrl = new URL(url);
-    (Object.keys(params) as Array<keyof T>).forEach(key => {
-        newUrl.searchParams.append(key.toString(), params[key].toString())
-    })
-
-    return newUrl.toString()
-}
-
-export function findName(array: { name: string, path: string }[], value: string): string {
-    const correctObj = [...array].filter(element => element.path === value);
-    return correctObj[0]?.name || "Dashboard"
-}
+export const listOfStatus = ['draft', "active"];
