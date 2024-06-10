@@ -1,6 +1,6 @@
 import App from "./App";
 import axios from "axios";
-import { ErrorPage, Products, Media, AddMedia, AddProduct,ViewProduct } from "./pages";
+import { ErrorPage, Products, Media, AddMedia, FormProduct, ViewProduct } from "./pages";
 import { Outlet, createBrowserRouter, redirect } from "react-router-dom";
 import { endPoints } from "./constant";
 import { getCookie, setCookie } from "./utility";
@@ -38,7 +38,6 @@ const router = createBrowserRouter([
                     setCookie("customer", JSON.stringify(tokenCustomer))
                 }
             } catch (error) {
-                console.log(error);
                 return {
                     msg: "Please provide email or password",
                     typeMsg: "error"
@@ -61,15 +60,33 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "create",
-                        element: <AddProduct />,
-                        action: async ({ request}) => {
-                            const id = await request.text();                                            
+                        element: <FormProduct typeForm="create" />,
+                        action: async ({ request }) => {
+                            const id = await request.text();
                             return redirect(`/products/${id}`)
                         }
                     },
                     {
                         path: ":productId",
-                        element: <ViewProduct/>
+                        element: <ViewProduct />
+                    },
+                    {
+                        path: ":productId/edit",
+                        element: <FormProduct typeForm="change" />,
+                        loader: async ({ params }) => {
+                            try {
+                                const response = await axios(`${endPoints.products}/${params.productId}`);
+                                const data = await response.data;
+                                const { product } = data;
+                                return product
+                            } catch (error) {
+                                console.log(error);
+                            }
+                        },
+                        action: async ({ request }) => {
+                            const id = await request.text();
+                            return redirect(`/products/${id}`)
+                        }
                     }
                 ]
             },

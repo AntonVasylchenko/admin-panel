@@ -13,6 +13,13 @@
   padding: var(--spacing-extra-small) var(--spacing-extra-large);
 }
 
+.productsNotFound{
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-extra-large);
+}
+
 @media (max-width: 768px) {
   .products__controller {
     flex-wrap: wrap;

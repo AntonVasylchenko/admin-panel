@@ -53,22 +53,26 @@ const Products: React.FC = () => {
                     >
                         Create new product
                     </Link>
-                    <FilterSelect
-                        type='sort-filter'
-                        label='Sort by'
-                        options={filterProduct.sort}
-                        value={filterValue.sort}
-                        onChange={handleSort}
-                        name='sort'
-                    />
-                    <FilterSelect
-                        type='status-filter'
-                        label='Status by'
-                        options={filterProduct.status}
-                        value={filterValue.status}
-                        onChange={handleSort}
-                        name='status'
-                    />
+                    {data &&
+                        <FilterSelect
+                            type='sort-filter'
+                            label='Sort by'
+                            options={filterProduct.sort}
+                            value={filterValue.sort}
+                            onChange={handleSort}
+                            name='sort'
+                        />
+                    }
+                    {data &&
+                        <FilterSelect
+                            type='status-filter'
+                            label='Status by'
+                            options={filterProduct.status}
+                            value={filterValue.status}
+                            onChange={handleSort}
+                            name='status'
+                        />
+                    }
 
                 </div>
                 {data && <ProductList status={status} products={data.products} />}
@@ -79,6 +83,11 @@ const Products: React.FC = () => {
                         onClick={handlePagination}
                         type='product'
                     />
+                }
+                {
+                    data === null && <div className={style.productsNotFound}>
+                        <h2 className='main-title'>Not found</h2>
+                    </div>
                 }
             </div>
         </div>

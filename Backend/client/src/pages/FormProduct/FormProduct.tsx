@@ -1,16 +1,16 @@
 import React from 'react'
 import style from "./style.module.css"
-import { TypeProductForm, FormElement, ServerError, MediaData,PropsModal } from "./type";
+import { TypeProductForm, FormElement, ServerError, MediaData, PropsModal, typeForm } from "./type";
 
 import axios, { AxiosError } from 'axios';
 import { InputField, FilterSelect, TextField, Button, Loader, Modal } from '../../UI'
 import { createClasses } from '../../utility'
 import { endPoints, listOfStatus } from '../../constant';
 import { useStore } from '../../store';
-import { Link, useSubmit } from 'react-router-dom';
+import { Link, useLoaderData, useSubmit } from 'react-router-dom';
 import { useFetch } from '../../hook';
 
-const AddProduct: React.FC = () => {
+const FormProduct: React.FC<typeForm> = ({ typeForm }) => {
     const { status, data } = useFetch<MediaData>(endPoints.media);
     const [show, setShow] = React.useState<boolean>(false);
     const [listMedia, setListMedia] = React.useState<string[]>([]);
@@ -18,6 +18,7 @@ const AddProduct: React.FC = () => {
     const submit = useSubmit();
 
     const [productForm, setProductForm] = React.useState<TypeProductForm>({
+        _id: "",
         media: "",
         title: "",
         price: 0,
@@ -25,6 +26,15 @@ const AddProduct: React.FC = () => {
         description: "",
         status: "draft"
     });
+
+    if (typeForm === "change") {
+        const product = useLoaderData() as TypeProductForm;
+        React.useEffect(() => {
+            setProductForm(product);
+            console.log(productForm);
+
+        }, [])
+    }
 
     const handleForm = React.useCallback((event: React.ChangeEvent<FormElement>): void => {
         const { name, value } = event.target;
@@ -34,12 +44,20 @@ const AddProduct: React.FC = () => {
         }))
     }, [setProductForm])
 
-    const handleCreateProduct = async (): Promise<void> => {
+    const handleActionProduct = async (): Promise<void> => {
         try {
-            const response = await axios.post(endPoints.products, productForm);
+            const pathType = typeForm === "create"
+                ? endPoints.products
+                : `${endPoints.products}/${productForm._id}`;
+            const response = typeForm === "create"
+                ? await axios.post(pathType, productForm)
+                : await axios.patch(pathType, productForm);
+
             const data = await response.data;
-            changeMessage(`Product ${data.product.title} was created`, "success");
+
+            changeMessage(`Product ${data.product.title} was ${typeForm === "create" ? "created" : "changed"}`, "success");
             submit(data.product._id, { method: "post", encType: "text/plain" });
+
         } catch (error) {
             let messageError = "Error";
             if (axios.isAxiosError(error)) {
@@ -80,10 +98,12 @@ const AddProduct: React.FC = () => {
 
     return (
         <div className={style.productForm}>
-            <div className={style.formRow}>
-                <Button typeButton='button' onClick={handleShow} cssSelector={createClasses(style.button, "primary-button")}>Add media</Button>
-                <ModalComponent show={show} handleShow={handleShow} handleMedia={handleMedia} data={data}/>
-            </div>
+            {typeForm === "create" &&
+                <div className={style.formRow}>
+                    <Button typeButton='button' onClick={handleShow} cssSelector={createClasses(style.button, "primary-button")}>Add media</Button>
+                    <ModalComponent show={show} handleShow={handleShow} handleMedia={handleMedia} data={data} />
+                </div>
+            }
             <div className={style.formRow}>
                 <InputField
                     type='text'
@@ -132,18 +152,18 @@ const AddProduct: React.FC = () => {
                 />
             </div>
             <Button
-                onClick={handleCreateProduct}
+                onClick={handleActionProduct}
                 cssSelector={createClasses("primary-button", style.formButton)}
                 typeButton='button'
             >
-                Create
+                {typeForm === "create" ? "Create" : "Change"}
             </Button>
         </div>
     )
 }
 
 
-const ModalComponent: React.FC<PropsModal> = ({show,handleShow,handleMedia,data}) => { 
+const ModalComponent: React.FC<PropsModal> = ({ show, handleShow, handleMedia, data }) => {
     return (
         <Modal isActive={show} onClick={handleShow}>
             <div className={style.productModal}>
@@ -174,4 +194,4 @@ const ModalComponent: React.FC<PropsModal> = ({show,handleShow,handleMedia,data}
     )
 }
 
-export default AddProduct
+export default FormProduct

@@ -11,8 +11,11 @@ import StatusCodes from "http-status-codes";
 
 async function createProduct(req, res) {
   const mediaIds = req.body.media?.split(",") || [];
+  
   const mediaPaths = await Promise.all(
-    mediaIds.map(async (mediaId) => {
+    [...mediaIds]
+      .filter(id => id !== "")
+      .map(async (mediaId) => {
       const mediaElement = await Media.findOne({ _id: mediaId });
       if (!mediaElement) {
         throw new customError.NotFoundError(`No Media with id: ${mediaId}`);

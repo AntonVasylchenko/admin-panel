@@ -1,4 +1,9 @@
+export type typeForm = {
+    typeForm: "create" | "change"
+}
+
 export type TypeProductForm = {
+    _id?: string,
     media: string,
     title: string,
     price: number,

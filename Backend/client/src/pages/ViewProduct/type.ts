@@ -11,3 +11,5 @@ export type ProductData = {
     title: string
   }
 }
+
+export type ServerError = { msg: string };
