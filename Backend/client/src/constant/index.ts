@@ -36,10 +36,6 @@ export const menuList: { name: string, path: string }[] = [
         path: "/media"
     },
     {
-        name: "User",
-        path: "/user"
-    },
-    {
         name: "Settings",
         path: "/settings"
     }

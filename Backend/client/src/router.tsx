@@ -122,20 +122,6 @@ const router = createBrowserRouter([
                 ]
             },
             {
-                path: "user",
-                element: <PageLayout />,
-                children: [
-                    {
-                        index: true,
-                        element: <div>user Home</div>,
-                    },
-                    {
-                        path: ":userId",
-                        element: <div>TTT user</div>,
-                    }
-                ]
-            },
-            {
                 path: "settings",
                 element: <PageLayout />,
                 children: [

@@ -18,7 +18,6 @@ const FormProduct: React.FC<typeForm> = ({ typeForm }) => {
     const submit = useSubmit();
 
     const [productForm, setProductForm] = React.useState<TypeProductForm>({
-        _id: "",
         media: "",
         title: "",
         price: 0,
@@ -31,8 +30,6 @@ const FormProduct: React.FC<typeForm> = ({ typeForm }) => {
         const product = useLoaderData() as TypeProductForm;
         React.useEffect(() => {
             setProductForm(product);
-            console.log(productForm);
-
         }, [])
     }
 
