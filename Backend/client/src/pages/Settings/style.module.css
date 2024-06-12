@@ -1,0 +1,31 @@
+.customer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  row-gap: var(--spacing-medium);
+}
+
+.customerField {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  column-gap: var(--spacing-small);
+}
+
+.customerButton {
+  margin-right: auto;
+  padding: var(--spacing-extra-small) var(--spacing-extra-large);
+}
+
+.customerButton:disabled {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .customerField {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--spacing-medium);
+  }
+}

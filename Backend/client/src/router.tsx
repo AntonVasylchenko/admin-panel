@@ -1,6 +1,6 @@
 import App from "./App";
 import axios from "axios";
-import { ErrorPage, Products, Media, AddMedia, FormProduct, ViewProduct } from "./pages";
+import { ErrorPage, Products, Media, AddMedia, FormProduct, ViewProduct, Settings } from "./pages";
 import { Outlet, createBrowserRouter, redirect } from "react-router-dom";
 import { endPoints } from "./constant";
 import { getCookie, setCookie } from "./utility";
@@ -127,7 +127,7 @@ const router = createBrowserRouter([
                 children: [
                     {
                         index: true,
-                        element: <div>Settings Home</div>,
+                        element: <Settings />,
                     }
                 ]
             }
