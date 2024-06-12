@@ -28,3 +28,12 @@ export type CustomerData = {
 }
 
 export type ServerError = { msg: string };
+
+export type TokenCustomer = {
+  [key: string]: {
+      firstName: string
+      lastName: string
+      customerId: string
+      role: string
+  }
+}

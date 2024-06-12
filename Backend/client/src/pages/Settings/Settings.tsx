@@ -1,10 +1,10 @@
 import React from 'react'
 import style from "./style.module.css"
-import { CookieData, CustomerData, CustomerForm, ServerError, CustomerPassword } from "./type"
+import { CookieData, CustomerData, CustomerForm, ServerError, CustomerPassword,TokenCustomer } from "./type"
 
 import { useFetch } from '../../hook'
 import { endPoints } from '../../constant';
-import { createClasses, getCookie } from '../../utility';
+import { createClasses, getCookie, setCookie } from '../../utility';
 import { Button, InputField, Loader } from '../../UI';
 import axios, { AxiosError } from 'axios';
 import { useStore } from '../../store';
@@ -47,7 +47,13 @@ const Settings: React.FC = () => {
     try {
       const response = await axios.patch(`${endPoints.customer}/${type}`, type === "update" ? customerForm : customerPassword);
       const data = await response.data;
-      console.log(data);
+    
+      if (type === "update" ) {
+        const { tokenCustomer } = data as TokenCustomer
+        if (tokenCustomer.role != "user") {
+            setCookie("customer", JSON.stringify(tokenCustomer))
+        }
+      }
       changeMessage("Changed", "success");
     } catch (error) {
       let messageError = "Error";
