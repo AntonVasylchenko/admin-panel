@@ -1,19 +1,22 @@
 import App from "./App";
+import { TokenCustomer } from "./types"
+
 import axios from "axios";
-import { ErrorPage, Products, Media, AddMedia, FormProduct, ViewProduct, Settings } from "./pages";
+import {
+    ErrorPage,
+    Products, 
+    Media, 
+    AddMedia, 
+    FormProduct, 
+    ViewProduct, 
+    Settings,
+    Collections,
+    FormCollection,
+    ViewCollection
+} from "./pages";
 import { Outlet, createBrowserRouter, redirect } from "react-router-dom";
 import { endPoints } from "./constant";
 import { getCookie, setCookie } from "./utility";
-
-
-type TokenCustomer = {
-    [key: string]: {
-        firstName: string
-        lastName: string
-        customerId: string
-        role: string
-    }
-}
 
 const router = createBrowserRouter([
     {
@@ -96,11 +99,29 @@ const router = createBrowserRouter([
                 children: [
                     {
                         index: true,
-                        element: <div>Collection Home</div>,
+                        element: <Collections/>,
+                    },
+                    {
+                        path: "create",
+                        element: <FormCollection typeForm="create" />
                     },
                     {
                         path: ":collectionId",
-                        element: <div>TTT Collection</div>,
+                        element: <ViewCollection/>,
+                    },
+                    {
+                        path: ":collectionId/edit",
+                        element: <FormCollection typeForm="change"/> ,
+                        loader: async ({ params }) => {
+                            try {
+                                const response = await axios(`${endPoints.collection}/${params.collectionId}`);
+                                const data = await response.data;
+                                const { collection } = data;
+                                return collection
+                            } catch (error) {
+                                console.log(error);
+                            }
+                        },
                     }
                 ]
             },

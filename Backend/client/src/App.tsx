@@ -1,22 +1,14 @@
 import React from 'react'
+import { LoginType, ActionType } from './types';
+
 import { Header, LogIn, Main, Navigation } from './component'
 import { useActionData, useLoaderData } from 'react-router-dom'
 import { useStore } from './store';
 import { MessageBar } from './UI';
-
-export type Log = {
-  _id: string,
-  action: string,
-  name: string,
-  product: string,
-  createdAt: string,
-  updatedAt: string
-}
-
 const App: React.FC = () => {
-  const { isLogin } = useLoaderData() as { isLogin: boolean, log: Log[] };
 
-  const actionData = useActionData() as { msg: string, typeMsg: "success" | "error" | "" }
+  const { isLogin } = useLoaderData() as LoginType;
+  const actionData = useActionData() as ActionType;
   const { changeMessage } = useStore();
 
   React.useEffect(() => {

@@ -15,16 +15,25 @@ async function getAllCollection(req, res) {
 }
 async function createCollection(req, res) {
   const { title, media, tags, products } = req.body;
+  let otherModel = {
+    media: [],
+    product: []
+  }
   if (!title) {
     throw new customError.BadRequestError("Please provide collection title");
   }
 
-  const productModel = await createArrayDb(products, Product, "Product", "_id");
-  const mediaModel = await createArrayDb(media, Media, "Media", "path");
+  if (products) {
+    otherModel.product = await createArrayDb(products, Product, "Product", "_id")
+  }
+  if (media) {
+    otherModel.media =  await createArrayDb(media, Media, "Media", "path");
+
+  }
   const collectionData = {
     ...req.body,
-    images: mediaModel || [],
-    products: productModel || [],
+    images: otherModel.media,
+    products: otherModel.product,
     tags: typeof tags === "string" ? tags.split(",") : "",
   };
 
@@ -54,7 +63,8 @@ async function updateCollection(req, res) {
   if (media) {
     updateObject.media = await createArrayDb(media, Media, "Media", "path");
   }
-  if (products) {
+
+  if (products !== "" && products.length !== 0 ) {
     updateObject.products = await createArrayDb(products, Product, "Product", "_id");
   }
   if (tags) {

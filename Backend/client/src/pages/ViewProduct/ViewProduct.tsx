@@ -43,9 +43,6 @@ const ViewProduct: React.FC = () => {
     }
   }
 
-
-  console.log(product);
-
   return (
     <div className={style.product}>
       <div className={style.controller}>

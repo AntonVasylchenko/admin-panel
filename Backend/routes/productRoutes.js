@@ -13,6 +13,10 @@ router
   );
 
 router
+  .route("/full-list")
+  .get(productControllers.getAllProductsList)
+  
+router
   .route("/:id")
   .get(productControllers.getSinleProduct)
   .patch(

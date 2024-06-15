@@ -1,11 +1,6 @@
+import { FilterProduct } from "../types"
+
 export const PATH_API: string = import.meta.env.VITE_API_URL
-
-
-type FilterProduct = {
-    sort: string[],
-    status: string[],
-    amount: number[]
-}
 
 export const filterProduct: FilterProduct = {
     sort: ["none", "latest", "oldest", "a-z", "z-a"],

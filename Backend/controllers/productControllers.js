@@ -97,6 +97,14 @@ async function getAllProducts(req, res) {
   });
 }
 
+async function getAllProductsList(req,res) {
+  const products = await Product.find({});
+  if (!products) {
+    throw new customError.BadRequestError("Products not found");
+  }
+  res.status(StatusCodes.OK).json({ products });
+}
+
 async function updateProduct(req, res) {
   const { id: productId } = req.params;
   const product = await Product.findByIdAndUpdate(
@@ -136,6 +144,7 @@ const productControllers = {
   getAllProducts,
   updateProduct,
   deleteProduct,
+  getAllProductsList,
 };
 
 export default productControllers;

@@ -7,3 +7,9 @@ export { default as ViewProduct } from "./ViewProduct/ViewProduct"
 
 export { default as Media } from "./Media/Media"
 export { default as AddMedia } from "./AddMedia/AddMedia"
+
+export { default as Collections } from "./Collections/Collections"
+export { default as FormCollection } from "./FormCollection/FormCollection"
+export { default as ViewCollection } from "./ViewCollection/ViewCollection"
+
+
