@@ -94,12 +94,34 @@ async function removeCollection(req, res) {
   res.status(StatusCodes.OK).json({ msg: "Colection deleted" });
 }
 
+async function getSeveralCollection(req,res) {
+  const { listId } = req.query;
+
+  console.log(listId);
+
+  const products = await Promise.all(
+    [...listId.split(",")]
+      .filter(id => id !== "")
+      .map(async (productId) => {
+        console.log(productId);
+      const productElement = await Product.findById({ _id: productId });
+      if (!productElement) {
+        throw new customError.NotFoundError(`No Product with id: ${productId}`);
+      }
+      return productElement;
+    })
+  );
+
+  res.status(StatusCodes.OK).json({ products});
+}
+
 const collectionContollers = {
   getAllCollection,
   createCollection,
   getSingleCollection,
   updateCollection,
   removeCollection,
+  getSeveralCollection
 };
 
 export default collectionContollers;

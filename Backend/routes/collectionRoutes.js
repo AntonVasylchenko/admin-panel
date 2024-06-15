@@ -9,6 +9,10 @@ router
   .post(collectionContollers.createCollection);
 
 router
+  .route("/list")
+  .get(collectionContollers.getSeveralCollection)
+
+router
   .route("/:id")
   .get(collectionContollers.getSingleCollection)
   .patch(collectionContollers.updateCollection)

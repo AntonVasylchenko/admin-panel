@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 
 const ProductItem: React.FC<PropsProductItem> = ({ _id, images, title, price }) => {
     return (
-        <Link to={_id} className={style.product}>
+        <Link to={`/products/${_id}`} className={style.product}>
             <div className={style.product__container}>
                 <div className={style.product__image}>
                     {
